@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Gamer Inside</string>
+    <string name="title_activity_game_detail">GameDetailActivity</string>
+</resources>
