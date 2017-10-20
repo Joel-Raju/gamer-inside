@@ -135,8 +135,8 @@
                             <ProgressBar
                                 android:id="@+id/game_gamer_rating"
                                 style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="@dimen/game_rating_progress_width"
-                                android:layout_height="@dimen/game_rating_progress_height"
+                                android:layout_width="@dimen/game_detail_game_rating_progress_width"
+                                android:layout_height="@dimen/game_detail_game_rating_progress_height"
                                 android:indeterminate="false"
                                 android:max="100"
                                 android:progressDrawable="@drawable/circular_progress" />
@@ -169,8 +169,8 @@
                             <ProgressBar
                                 android:id="@+id/game_critic_rating"
                                 style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="@dimen/game_rating_progress_width"
-                                android:layout_height="@dimen/game_rating_progress_height"
+                                android:layout_width="@dimen/game_detail_game_rating_progress_width"
+                                android:layout_height="@dimen/game_detail_game_rating_progress_height"
                                 android:indeterminate="false"
                                 android:max="100"
                                 android:progressDrawable="@drawable/circular_progress" />

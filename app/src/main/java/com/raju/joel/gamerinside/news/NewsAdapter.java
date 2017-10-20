@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.NewsArticle;
+import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -31,11 +32,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
 
     private Context mContext;
 
+    private OnBottomReachedListener mOnBottomReachedListener;
+
     public NewsAdapter(Context context, List<NewsArticle> newsArticleList,
-                       NewsFragment.NewsArticleListener newsArticleListener) {
+                       NewsFragment.NewsArticleListener newsArticleListener,
+                       OnBottomReachedListener onBottomReachedListener) {
         this.mContext = context;
         setList(newsArticleList);
         this.mNewsArticleListener = newsArticleListener;
+        this.mOnBottomReachedListener = onBottomReachedListener;
     }
 
     @Override
@@ -56,6 +61,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
 
     @Override
     public void onBindViewHolder(NewsVH holder, int position) {
+        if (position == (mNewsArticleList.size()-1)) {
+            mOnBottomReachedListener.onBottomReached();
+        }
         final NewsArticle article = mNewsArticleList.get(position);
         String imageUrl = getNewsImagePath(article.getPulseImage().getCloudId());
 

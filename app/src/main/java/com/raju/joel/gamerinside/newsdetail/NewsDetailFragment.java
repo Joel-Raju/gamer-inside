@@ -60,6 +60,7 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
 
         View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
 
+        mNewsTitle = (TextView) view.findViewById(R.id.news_article_title);
         mNewsSummary = (TextView) view.findViewById(R.id.news_article_description);
         mNewsImage = (ImageView) view.findViewById(R.id.news_article_image);
         mNewsReadMore = (TextView) view.findViewById(R.id.go_to_article);
@@ -92,9 +93,8 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
 
     @Override
     public void showNewsArticle(NewsArticle article) {
-        mNewsImage.setVisibility(View.VISIBLE);
-        mNewsSummary.setVisibility(View.VISIBLE);
 
+        mNewsTitle.setText(article.getTitle());
         mNewsSummary.setText(article.getSummary());
         Picasso.with(getContext())
                 .load(getNewsArticleImage(article.getPulseImage().getCloudId()))

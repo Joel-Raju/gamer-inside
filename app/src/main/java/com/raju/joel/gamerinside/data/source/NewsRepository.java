@@ -46,14 +46,17 @@ public class NewsRepository implements NewsDataSource {
     @Override
     public void getNews(@NonNull LoadedNewsCallback callback) {
 
-        if (mCachedNewsArticles != null && !mCacheIsDirty) {
-            callback.onNewsLoaded(new ArrayList<>(mCachedNewsArticles.values()));
-            return;
-        }
+        getNewsFromRemoteDataSource(callback);
 
-        if (mCacheIsDirty) {
-            getNewsFromRemoteDataSource(callback);
-        }
+        //TODO implement a caching mechanism
+//        if (mCachedNewsArticles != null && !mCacheIsDirty) {
+//            callback.onNewsLoaded(new ArrayList<>(mCachedNewsArticles.values()));
+//            return;
+//        }
+//
+//        if (mCacheIsDirty) {
+//            getNewsFromRemoteDataSource(callback);
+//        }
     }
 
     @Override
@@ -70,7 +73,11 @@ public class NewsRepository implements NewsDataSource {
         mNewsRemoteDataSource.getNews(new LoadedNewsCallback() {
             @Override
             public void onNewsLoaded(List<NewsArticle> newsArticles) {
-                refreshCache(newsArticles);
+                if (mCachedNewsArticles == null) {
+                    refreshCache(newsArticles);
+                } else {
+                    updateCache(newsArticles);
+                }
                 callback.onNewsLoaded(new ArrayList<>(mCachedNewsArticles.values()));
             }
 
@@ -96,11 +103,19 @@ public class NewsRepository implements NewsDataSource {
     }
 
     private void refreshCache(List<NewsArticle> newsArticles) {
+        mCachedNewsArticles = new LinkedHashMap<>();
+        mCachedNewsArticles.clear();
+        for (NewsArticle article: newsArticles) {
+            mCachedNewsArticles.put(article.getId(), article);
+        }
+        mCacheIsDirty = false;
+    }
+
+    private void updateCache(@NonNull List<NewsArticle> newsArticles) {
         if (mCachedNewsArticles == null) {
             mCachedNewsArticles = new LinkedHashMap<>();
+            mCachedNewsArticles.clear();
         }
-
-        mCachedNewsArticles.clear();
         for (NewsArticle article: newsArticles) {
             mCachedNewsArticles.put(article.getId(), article);
         }

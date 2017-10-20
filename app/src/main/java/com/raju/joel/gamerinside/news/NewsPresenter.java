@@ -53,10 +53,9 @@ public class NewsPresenter implements NewsContract.Presenter {
             public void onNewsLoaded(List<NewsArticle> newsArticles) {
                 List<NewsArticle> articles = newsArticles;
 
-                //TODO: fix the below commented lines
-//                if (!mNewsView.isActive()) {
-//                    return;
-//                }
+                if (!mNewsView.isActive()) {
+                    return;
+                }
 
                 if (showLoadingUi) {
                     mNewsView.setLoadingIndicator(false);

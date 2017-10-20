@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.NewsArticle;
 import com.raju.joel.gamerinside.newsdetail.NewsDetailActivity;
+import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,13 @@ public class NewsFragment extends Fragment implements NewsContract.View {
     private NewsContract.Presenter mPresenter;
 
     private NewsAdapter mNewsAdapter;
+
+    private OnBottomReachedListener mNewsListOnBottomReachedListener = new OnBottomReachedListener() {
+        @Override
+        public void onBottomReached() {
+            mPresenter.loadNews(false);
+        }
+    };
 
 
     NewsArticleListener mNewsArticleListener = new NewsArticleListener() {
@@ -42,7 +50,8 @@ public class NewsFragment extends Fragment implements NewsContract.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNewsAdapter =  new NewsAdapter(getContext(), new ArrayList<NewsArticle>(0), mNewsArticleListener);
+        mNewsAdapter =  new NewsAdapter(getContext(), new ArrayList<NewsArticle>(0),
+                mNewsArticleListener, mNewsListOnBottomReachedListener);
     }
 
     @Override

@@ -7,6 +7,8 @@ package com.raju.joel.gamerinside.data.source.remote;
 
 public class RemoteServiceUtils {
 
+    public static final int STATUS_CODE_OK = 200;
+
     private static String getToken() {
         return "d44cep123tqa2bni6j2fd39ea4e7ll";
     }

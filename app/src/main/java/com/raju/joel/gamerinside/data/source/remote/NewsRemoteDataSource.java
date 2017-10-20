@@ -23,6 +23,11 @@ public class NewsRemoteDataSource implements NewsDataSource {
 
     private static RemoteService mService;
 
+    private static int NEWS_PAGINATION_OFFSET = 0;
+
+    private static final int NEWS_PAGINATION_LIMIT = 5;
+
+
     private NewsRemoteDataSource(@NonNull Context context) {
 
     }
@@ -37,15 +42,15 @@ public class NewsRemoteDataSource implements NewsDataSource {
 
     @Override
     public void getNews(@NonNull final LoadedNewsCallback callback) {
-        mService.getLatestNews().enqueue(new Callback<List<NewsArticle>>() {
+
+        mService.getLatestNews(NEWS_PAGINATION_LIMIT, NEWS_PAGINATION_OFFSET).enqueue(new Callback<List<NewsArticle>>() {
             @Override
             public void onResponse(Call<List<NewsArticle>> call, Response<List<NewsArticle>> response) {
-
-                // TODO: check for 401 , 402 etc
-                if (!response.isSuccessful()) {
+                if (!response.isSuccessful() || response.code() != RemoteServiceUtils.STATUS_CODE_OK) {
                     callback.onDataNotAvailable();
                     return;
                 }
+                NEWS_PAGINATION_OFFSET += NEWS_PAGINATION_LIMIT;
                 callback.onNewsLoaded(response.body());
             }
 
@@ -69,8 +74,7 @@ public class NewsRemoteDataSource implements NewsDataSource {
                 }
 
                 //TODO: check and modify this
-                List<NewsArticle> newsArticles = new ArrayList<>();
-                newsArticles = response.body();
+                List<NewsArticle> newsArticles = response.body();
                 callback.onNewsArticleLoaded(newsArticles.get(0));
             }
 

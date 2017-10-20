@@ -23,9 +23,16 @@
 
     <dimen name="content_horizontal_margin">24dp</dimen>
 
-    <dimen name="game_rating_progress_width">64dp</dimen>
-    <dimen name="game_rating_progress_height">64dp</dimen>
+    <dimen name="game_detail_game_rating_progress_width">64dp</dimen>
+    <dimen name="game_detail_game_rating_progress_height">64dp</dimen>
     <dimen name="game_detail_game_title_size">24dp</dimen>
     <dimen name="game_detail_vertical_margin">24dp</dimen>
+
+    <dimen name="news_detail_title_size">20sp</dimen>
+    <dimen name="news_detail_title_vertical_margin">16dp</dimen>
+    <dimen name="news_detail_description_size">15sp</dimen>
+    <dimen name="news_detail_content_horizontal_margin">24dp</dimen>
+    <dimen name="news_detail_content_bottom_margin">36dp</dimen>
+
 
 </resources>
