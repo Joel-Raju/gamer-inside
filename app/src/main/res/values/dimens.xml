@@ -1,3 +1,31 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!--Game Card List Item-->
+    <dimen name="game_card_item_height">160dp</dimen>
+    <dimen name="game_card_grid_item_width">146dp</dimen>
+    <dimen name="game_card_grid_item_height">160dp</dimen>
+    <dimen name="game_card_item_title_padding">10dp</dimen>
+    <dimen name="game_card_item_title_size">15dp</dimen>
+
+    <dimen name="news_card_item_horizontal_margin">8dp</dimen>
+    <dimen name="news_card_item_vertical_margin">8dp</dimen>
+
+
+    <dimen name="base_horizontal_margin">8dp</dimen>
+
+    <dimen name="recyclerview_view_horizontal_margin">8dp</dimen>
+    <dimen name="search_widget_bottom_margin">16dp</dimen>
+
+    <dimen name="screenshot_item_full_width">320dp</dimen>
+    <dimen name="screenshot_item_full_height">181dp</dimen>
+    <dimen name="screenshot_item_horizontal_margin">8dp</dimen>
+
+    <dimen name="content_horizontal_margin">24dp</dimen>
+
+    <dimen name="game_rating_progress_width">64dp</dimen>
+    <dimen name="game_rating_progress_height">64dp</dimen>
+    <dimen name="game_detail_game_title_size">24dp</dimen>
+    <dimen name="game_detail_vertical_margin">24dp</dimen>
+
 </resources>

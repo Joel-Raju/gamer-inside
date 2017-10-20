@@ -20,16 +20,28 @@ public class GamesRepository implements GamesDataSource {
 
     private final GamesDataSource mGamesRemoteDataSource;
 
-    Map<String, Game> mCachedGames;
+    Map<String, Game> mPopularGamesCache;
 
-    boolean mCacheIsDirty = false;
+    Map<String, Game> mUpcomingGamesCache;
+
+    Map<String, Game> mMostAnticipatedGamesCache;
+
+    Map<String, Game> mSearchedGamesCache;
+
+    boolean mPopularGamesCacheIsDirty = false;
+
+    boolean mUpcomingGamesCacheIsDirty = false;
+
+    boolean mMostAnticipatedGamesCacheIsDirty = false;
+
+    boolean mSearchedGamesCacheIsDirty = false;
 
 
     private GamesRepository(@NonNull GamesDataSource gamesRemoteDataSource) {
         mGamesRemoteDataSource = gamesRemoteDataSource;
     }
 
-    private static GamesRepository getInstance(GamesDataSource gamesRemoteDataSource) {
+    public static GamesRepository getInstance(GamesDataSource gamesRemoteDataSource) {
         if(INSTANCE == null) {
             INSTANCE = new GamesRepository(gamesRemoteDataSource);
         }
@@ -41,33 +53,53 @@ public class GamesRepository implements GamesDataSource {
     }
 
     @Override
-    public void getGames(@NonNull LoadGamesCallback callback) {
-
-        if (mCachedGames != null && !mCacheIsDirty) {
-            callback.onGamesLoaded(new ArrayList<>(mCachedGames.values()));
+    public void getPopularGames(@NonNull LoadGamesCallback callback) {
+        if (mPopularGamesCache != null && !mPopularGamesCacheIsDirty) {
+            callback.onGamesLoaded(new ArrayList<>(mPopularGamesCache.values()));
             return;
         } else {
-            getGamesFromRemoteDataSource(callback);
+            getPopularGamesFromRemoteDataSource(callback);
         }
+    }
 
+    @Override
+    public void getMostAnticipatedGames(@NonNull LoadGamesCallback callback) {
+        if (mMostAnticipatedGamesCache != null && !mMostAnticipatedGamesCacheIsDirty) {
+            callback.onGamesLoaded(new ArrayList<>(mMostAnticipatedGamesCache.values()));
+            return;
+        } else {
+            getMostAnticipatedGamesFromRemoteDataSource(callback);
+        }
+    }
+
+    @Override
+    public void getUpcomingGames(@NonNull LoadGamesCallback callback) {
+        if (mUpcomingGamesCache != null && !mUpcomingGamesCacheIsDirty) {
+            callback.onGamesLoaded(new ArrayList<>(mUpcomingGamesCache.values()));
+            return;
+        } else {
+            getUpcomingGamesFromRemoteDataSource(callback);
+        }
     }
 
     @Override
     public void getGame(@NonNull String gameId, @NonNull final GetGameCallback callback) {
-        Game cachedGame = getGameWithId(gameId);
 
-        if (cachedGame != null) {
-            callback.onGameLoaded(cachedGame);
-            return;
-        }
+        //TODO: implement a caching mechanism
+//        Game cachedGame = getGameWithId(gameId);
+//
+//        if (cachedGame != null) {
+//            callback.onGameLoaded(cachedGame);
+//            return;
+//        }
 
         mGamesRemoteDataSource.getGame(gameId, new GetGameCallback() {
             @Override
             public void onGameLoaded(Game game) {
-                if (mCachedGames == null) {
-                    mCachedGames = new LinkedHashMap<>();
+                if (mPopularGamesCache == null) {
+                    mPopularGamesCache = new LinkedHashMap<>();
                 }
-                mCachedGames.put(game.getId(), game);
+                mPopularGamesCache.put(game.getId(), game);
                 callback.onGameLoaded(game);
             }
 
@@ -78,12 +110,12 @@ public class GamesRepository implements GamesDataSource {
         });
     }
 
-    private void getGamesFromRemoteDataSource(@NonNull final LoadGamesCallback callback) {
-        mGamesRemoteDataSource.getGames(new LoadGamesCallback() {
+    private void getPopularGamesFromRemoteDataSource(@NonNull final LoadGamesCallback callback) {
+        mGamesRemoteDataSource.getPopularGames(new LoadGamesCallback() {
             @Override
             public void onGamesLoaded(List<Game> games) {
-                refreshCache(games);
-                callback.onGamesLoaded(new ArrayList<>(mCachedGames.values()));
+                refreshPopularGamesCache(games);
+                callback.onGamesLoaded(new ArrayList<>(mPopularGamesCache.values()));
             }
 
             @Override
@@ -93,23 +125,123 @@ public class GamesRepository implements GamesDataSource {
         });
     }
 
-    private void refreshCache(List<Game> games) {
-        if(mCachedGames == null) {
-            mCachedGames = new LinkedHashMap<>();
+    private void getUpcomingGamesFromRemoteDataSource(@NonNull final LoadGamesCallback callback) {
+        mGamesRemoteDataSource.getUpcomingGames(new LoadGamesCallback() {
+            @Override
+            public void onGamesLoaded(List<Game> games) {
+                refreshUpcomingGamesCache(games);
+                callback.onGamesLoaded(new ArrayList<>(mUpcomingGamesCache.values()));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    private void getMostAnticipatedGamesFromRemoteDataSource(@NonNull final LoadGamesCallback callback) {
+        mGamesRemoteDataSource.getMostAnticipatedGames(new LoadGamesCallback() {
+            @Override
+            public void onGamesLoaded(List<Game> games) {
+                refreshMostAnticipatedGamesCache(games);
+                callback.onGamesLoaded(new ArrayList<>(mMostAnticipatedGamesCache.values()));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    @Override
+    public void searchForGames(@NonNull String searchKeyword, @NonNull final LoadGamesCallback callback) {
+        mGamesRemoteDataSource.searchForGames(searchKeyword, new LoadGamesCallback() {
+            @Override
+            public void onGamesLoaded(List<Game> games) {
+                refreshSearchedGamesCache(games);
+                callback.onGamesLoaded(new ArrayList<Game>(mSearchedGamesCache.values()));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
+
+
+    private void refreshSearchedGamesCache(List<Game> games) {
+        if (mSearchedGamesCache == null) {
+            mSearchedGamesCache = new LinkedHashMap<>();
         }
-        mCachedGames.clear();
+        mSearchedGamesCache.clear();
         for (Game game: games) {
-            mCachedGames.put(game.getId(), game);
+            mSearchedGamesCache.put(game.getId(), game);
         }
-        mCacheIsDirty = false;
+        mSearchedGamesCacheIsDirty = false;
+    }
+
+    private void refreshPopularGamesCache(List<Game> games) {
+        if(mPopularGamesCache == null) {
+            mPopularGamesCache = new LinkedHashMap<>();
+        }
+        mPopularGamesCache.clear();
+        for (Game game: games) {
+            mPopularGamesCache.put(game.getId(), game);
+        }
+        mPopularGamesCacheIsDirty = false;
+    }
+
+    private void refreshUpcomingGamesCache(List<Game> games) {
+        if(mUpcomingGamesCache == null) {
+            mUpcomingGamesCache = new LinkedHashMap<>();
+        }
+        mUpcomingGamesCache.clear();
+        for (Game game: games) {
+            mUpcomingGamesCache.put(game.getId(), game);
+        }
+        mUpcomingGamesCacheIsDirty = false;
+    }
+
+    private void refreshMostAnticipatedGamesCache(List<Game> games) {
+        if(mMostAnticipatedGamesCache == null) {
+            mMostAnticipatedGamesCache = new LinkedHashMap<>();
+        }
+        mMostAnticipatedGamesCache.clear();
+        for (Game game: games) {
+            mMostAnticipatedGamesCache.put(game.getId(), game);
+        }
+        mMostAnticipatedGamesCacheIsDirty = false;
     }
 
     @Nullable
     private Game getGameWithId(@NonNull String id) {
-        if (mCachedGames == null || mCachedGames.isEmpty()) {
+        if (mPopularGamesCache == null || mPopularGamesCache.isEmpty()) {
             return null;
         } else {
-            return mCachedGames.get(id);
+            return mPopularGamesCache.get(id);
         }
+    }
+
+    @Override
+    public void refreshPopularGames() {
+
+    }
+
+    @Override
+    public void refreshMostAnticipatedGames() {
+
+    }
+
+    @Override
+    public void refreshUpcomingGames() {
+
+    }
+
+    @Override
+    public void refreshSearchedGames() {
+
     }
 }

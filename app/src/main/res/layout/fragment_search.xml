@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".search.SearchFragment">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/game_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_horizontal_margin"
+        android:layout_marginRight="@dimen/base_horizontal_margin"
+        android:layout_marginBottom="@dimen/search_widget_bottom_margin"
+        app:queryHint="@string/hint_search_game_fragment" />
+
+    <include layout="@layout/game_collection_view" />
+
+</LinearLayout>

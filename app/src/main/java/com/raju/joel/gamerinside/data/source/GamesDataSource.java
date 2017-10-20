@@ -23,9 +23,22 @@ public interface GamesDataSource {
         void onDataNotAvailable();
     }
 
-    void getGames(@NonNull LoadGamesCallback callback);
+    void getPopularGames(@NonNull LoadGamesCallback callback);
+
+    void getMostAnticipatedGames(@NonNull LoadGamesCallback callback);
+
+    void getUpcomingGames(@NonNull LoadGamesCallback callback);
 
     void getGame(@NonNull String gameId, @NonNull GetGameCallback callback);
 
+    void searchForGames(@NonNull String searchKeyword, @NonNull LoadGamesCallback callback);
+
+    void refreshPopularGames();
+
+    void refreshMostAnticipatedGames();
+
+    void refreshUpcomingGames();
+
+    void refreshSearchedGames();
 
 }

@@ -1,31 +1,42 @@
 package com.raju.joel.gamerinside.gamedetail;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.raju.joel.gamerinside.R;
+import com.raju.joel.gamerinside.injection.DataProvider;
+import com.raju.joel.gamerinside.util.ActivityUtils;
 
 public class GameDetailActivity extends AppCompatActivity {
+
+    public static final String EXTRA_GAME_ID = "GAME_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        String gameId = getIntent().getStringExtra(EXTRA_GAME_ID);
+        GameDetailFragment gameDetailfragment = (GameDetailFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentFrame);
+
+        if (gameDetailfragment == null) {
+            gameDetailfragment = GameDetailFragment.newInstance(gameId);
+
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    gameDetailfragment, R.id.contentFrame);
+        }
+
+        new GameDetailPresenter(gameId,
+                DataProvider.provideGamesRepository(getApplicationContext()),
+                gameDetailfragment);
+
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }
