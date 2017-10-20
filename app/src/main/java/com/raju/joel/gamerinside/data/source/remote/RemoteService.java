@@ -31,7 +31,7 @@ public interface RemoteService {
 
 
     /**
-     * To get the latest 10 news articles (title & imageId only)
+     * To get the latest news articles (title & imageId only)
      * @param limit
      * @param offset
      * @return

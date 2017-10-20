@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.raju.joel.gamerinside.R;
@@ -33,6 +34,10 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
     private TextView mNewsReadMore;
 
     private ImageView mNewsImage;
+
+    private RelativeLayout mContent;
+
+    private RelativeLayout mContentLoading;
 
 
     public NewsDetailFragment() {
@@ -60,6 +65,8 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
 
         View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
 
+        mContent = (RelativeLayout) view.findViewById(R.id.content);
+        mContentLoading = (RelativeLayout) view.findViewById(R.id.content_loading_progress);
         mNewsTitle = (TextView) view.findViewById(R.id.news_article_title);
         mNewsSummary = (TextView) view.findViewById(R.id.news_article_description);
         mNewsImage = (ImageView) view.findViewById(R.id.news_article_image);
@@ -84,7 +91,17 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
 
     @Override
     public void setLoadingIndicator(boolean active) {
+        toggleContentVisibility(active);
+    }
 
+    private void toggleContentVisibility(boolean visible) {
+        if (!visible) {
+            mContentLoading.setVisibility(View.GONE);
+            mContent.setVisibility(View.VISIBLE);
+        } else {
+            mContent.setVisibility(View.GONE);
+            mContentLoading.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
