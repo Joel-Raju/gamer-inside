@@ -18,6 +18,7 @@ import com.raju.joel.gamerinside.gamecollection.GameCollectionAdapter;
 import com.raju.joel.gamerinside.gamedetail.*;
 
 import com.raju.joel.gamerinside.gamedetail.GameListener;
+import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,28 @@ public class DiscoverGamesFragment extends Fragment implements DiscoverGamesCont
         }
     };
 
+    private OnBottomReachedListener mPopularGamesScrollEndListener = new OnBottomReachedListener() {
+        @Override
+        public void onBottomReached() {
+            mPresenter.loadPopularGames(false);
+        }
+    };
+
+    private OnBottomReachedListener mMostAnticipatedGamesScrollEndListener = new OnBottomReachedListener() {
+        @Override
+        public void onBottomReached() {
+            //mPresenter.loadMostAnticipatedGames(false);
+        }
+    };
+
+    private OnBottomReachedListener mUpcomingGamesScrollEndListener = new OnBottomReachedListener() {
+        @Override
+        public void onBottomReached() {
+            //mPresenter.loadUpcomingGames(false);
+        }
+    };
+
+
 
     public DiscoverGamesFragment() {
 
@@ -54,11 +77,11 @@ public class DiscoverGamesFragment extends Fragment implements DiscoverGamesCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPopularGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                gameListener, R.layout.item_game_card);
+                gameListener, R.layout.item_game_card, mPopularGamesScrollEndListener);
         mMostAnticipatedGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                gameListener, R.layout.item_game_card);
+                gameListener, R.layout.item_game_card, mMostAnticipatedGamesScrollEndListener);
         mUpcomingGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                gameListener, R.layout.item_game_card);
+                gameListener, R.layout.item_game_card, mUpcomingGamesScrollEndListener);
     }
 
     @Nullable

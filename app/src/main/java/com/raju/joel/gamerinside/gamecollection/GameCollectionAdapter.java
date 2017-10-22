@@ -13,6 +13,7 @@ import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.Game;
 import com.raju.joel.gamerinside.discover.DiscoverGamesFragment;
 import com.raju.joel.gamerinside.gamedetail.GameListener;
+import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,12 +36,16 @@ public class GameCollectionAdapter extends RecyclerView.Adapter<GameCollectionAd
 
     private int mItemResource;
 
+    private OnBottomReachedListener mOnBottomReachedListener;
+
     public GameCollectionAdapter(Context context, List<Game> gameList,
-                                 GameListener listener, int resourceId) {
+                                 GameListener listener, int resourceId,
+                                 OnBottomReachedListener onBottomReachedListener) {
         mContext = context;
         setGameList(gameList);
         mGameListener = listener;
         mItemResource = resourceId;
+        mOnBottomReachedListener = onBottomReachedListener;
     }
 
     @Override
@@ -52,6 +57,9 @@ public class GameCollectionAdapter extends RecyclerView.Adapter<GameCollectionAd
 
     @Override
     public void onBindViewHolder(DiscoverGameVH holder, int position) {
+        if (position == (mGameList.size()-1)) {
+            mOnBottomReachedListener.onBottomReached();
+        }
         final Game game = mGameList.get(position);
         String imageUrl = getGameCoverPath(game);
 

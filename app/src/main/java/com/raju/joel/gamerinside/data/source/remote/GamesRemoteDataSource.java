@@ -7,7 +7,6 @@ import com.raju.joel.gamerinside.data.Game;
 import com.raju.joel.gamerinside.data.source.GamesDataSource;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,14 +25,13 @@ public class GamesRemoteDataSource implements GamesDataSource {
 
     private static RemoteService mService;
 
-    private static String mPopularGamesPaginationURL = "";
+    private static int POPULAR_GAMES_PAGINATION_OFFSET = 0;
 
-    private static int mPopularGamesResultCount = 0;
+    private static int MOST_ANTICIPATED_GAMES_PAGINATION_OFFSET = 0;
 
-    private static final String RESPONSE_HEADER_PAGINATION_URL = "x-next-page";
+    private static int UPCOMING_GAMES_PAGINATION_OFFSET = 0;
 
-    private static final String RESPONSE_HEADER_RESULT_COUNT = "x-count";
-
+    private static final int GAMES_PAGINATION_LIMIT = 6;
 
 
     public static GamesRemoteDataSource getInstance(Context context) {
@@ -50,14 +48,15 @@ public class GamesRemoteDataSource implements GamesDataSource {
 
     @Override
     public void getPopularGames(@NonNull final LoadGamesCallback callback) {
-        mService.getPopularGames().enqueue(new Callback<List<Game>>() {
+        mService.getPopularGames(GAMES_PAGINATION_LIMIT, POPULAR_GAMES_PAGINATION_OFFSET)
+                .enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
-                //TODO: check 404, 403 etc
-                if (!response.isSuccessful()) {
+                if (!response.isSuccessful() && response.code() != RemoteServiceUtils.STATUS_CODE_OK) {
                     callback.onDataNotAvailable();
                     return;
                 }
+                POPULAR_GAMES_PAGINATION_OFFSET += GAMES_PAGINATION_LIMIT;
                 callback.onGamesLoaded(response.body());
             }
 
@@ -76,11 +75,12 @@ public class GamesRemoteDataSource implements GamesDataSource {
         String dateUpperBound = String.valueOf(nextYear) + "-12-31";
         String orderQuery = "hypes:desc";
 
-        mService.getMostAnticipatedGames(dateLowerBound, dateUpperBound, orderQuery).enqueue(new Callback<List<Game>>() {
+        mService.getMostAnticipatedGames(dateLowerBound, dateUpperBound, orderQuery,
+                GAMES_PAGINATION_LIMIT, MOST_ANTICIPATED_GAMES_PAGINATION_OFFSET)
+                .enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
-                //TODO: check 404, 403 etc
-                if (!response.isSuccessful()) {
+                if (!response.isSuccessful() && response.code() != RemoteServiceUtils.STATUS_CODE_OK) {
                     callback.onDataNotAvailable();
                     return;
                 }
@@ -102,11 +102,11 @@ public class GamesRemoteDataSource implements GamesDataSource {
         String dateUpperBound = String.valueOf(nextYear) + "-12-31";
         String orderQuery = "popularity:desc";
 
-        mService.getUpcomingGames(dateLowerBound, dateUpperBound, orderQuery).enqueue(new Callback<List<Game>>() {
+        mService.getUpcomingGames(dateLowerBound, dateUpperBound, orderQuery, GAMES_PAGINATION_LIMIT,
+                UPCOMING_GAMES_PAGINATION_OFFSET).enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
-                //TODO: check 404, 403 etc
-                if (!response.isSuccessful()) {
+                if (!response.isSuccessful() && response.code() != RemoteServiceUtils.STATUS_CODE_OK) {
                     callback.onDataNotAvailable();
                     return;
                 }

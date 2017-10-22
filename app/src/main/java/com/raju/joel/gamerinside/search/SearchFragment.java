@@ -17,6 +17,7 @@ import com.raju.joel.gamerinside.data.Game;
 import com.raju.joel.gamerinside.gamecollection.GameCollectionAdapter;
 import com.raju.joel.gamerinside.gamedetail.GameDetailActivity;
 import com.raju.joel.gamerinside.gamedetail.GameListener;
+import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,13 @@ public class SearchFragment extends Fragment implements SearchContract.View,
 
     private static int ITEM_SPAN_COUNT = 3;
 
+    private OnBottomReachedListener mSearchedListScrollEndReached = new OnBottomReachedListener() {
+        @Override
+        public void onBottomReached() {
+            //mPresenter.loadSearchResults();
+        }
+    };
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -60,7 +68,7 @@ public class SearchFragment extends Fragment implements SearchContract.View,
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
         mAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                mGameListener, R.layout.item_game_card_grid);
+                mGameListener, R.layout.item_game_card_grid, mSearchedListScrollEndReached);
     }
 
     @Override

@@ -53,35 +53,51 @@ public interface RemoteService {
 
 
     /**
-     * Get a list of top 10 popular games order by year desc
+     * Get a list of popular games order by year desc
+     * @param limit
+     * @param offset
      * @return
      */
     @GET("games/?fields=name,cover&order=popularity:desc")
-    Call<List<Game>> getPopularGames();
+    Call<List<Game>> getPopularGames(
+            @Query(LIMIT_QUERY_PARAM) int limit,
+            @Query(OFFSET_QUERY_PARAM) int offset);
+
 
     /**
-     * Get a list of 10 top anticipated games ordered by hype
+     * Get a list of top anticipated games ordered by hype
      * @param dateLowerBound
      * @param dateUpperBound
+     * @param orderQuery
+     * @param limit
+     * @param offset
      * @return
      */
     @GET("/games/?fields=name,cover")
     Call<List<Game>> getMostAnticipatedGames(
             @Query(FILTER_RELEASE_DATE_LOWER_QUERY_PARAM) String dateLowerBound,
             @Query(FILTER_RELEASE_DATE_UPPER_QUERY_PARAM) String dateUpperBound,
-            @Query("order") String orderQuery);
+            @Query(ORDER_QUERY_PARAM) String orderQuery,
+            @Query(LIMIT_QUERY_PARAM) int limit,
+            @Query(OFFSET_QUERY_PARAM) int offset);
+
 
     /**
-     * Get a list of 10 Upcoming Games ordered by popularity
+     * Get a list of Upcoming Games ordered by popularity
      * @param dateLowerBound
      * @param dateUpperBound
+     * @param orderQuery
+     * @param limit
+     * @param offset
      * @return
      */
     @GET("/games/?fields=name,cover")
     Call<List<Game>> getUpcomingGames(
             @Query(FILTER_RELEASE_DATE_LOWER_QUERY_PARAM) String dateLowerBound,
             @Query(FILTER_RELEASE_DATE_UPPER_QUERY_PARAM) String dateUpperBound,
-            @Query(ORDER_QUERY_PARAM) String orderQuery);
+            @Query(ORDER_QUERY_PARAM) String orderQuery,
+            @Query(LIMIT_QUERY_PARAM) int limit,
+            @Query(OFFSET_QUERY_PARAM) int offset);
 
     /**
      * Get the detail of a particular game by Id

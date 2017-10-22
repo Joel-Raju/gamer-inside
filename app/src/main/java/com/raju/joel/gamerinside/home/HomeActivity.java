@@ -23,30 +23,30 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.home_activity);
 
         //News
-        NewsFragment newsFragment =
-                (NewsFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (newsFragment == null) {
-            newsFragment = NewsFragment.newInstance();
-
-            ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), newsFragment, R.id.contentFrame);
-        }
-
-        NewsPresenter newsPresenter = new NewsPresenter(
-                DataProvider.provideNewsRepository(HomeActivity.this), newsFragment);
-
-
-//        DiscoverGamesFragment discoverGamesFragment =
-//                (DiscoverGamesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-//        if (discoverGamesFragment == null) {
-//            discoverGamesFragment = DiscoverGamesFragment.newInstance();
+//        NewsFragment newsFragment =
+//                (NewsFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+//        if (newsFragment == null) {
+//            newsFragment = NewsFragment.newInstance();
 //
 //            ActivityUtils.addFragmentToActivity(
-//                    getSupportFragmentManager(), discoverGamesFragment, R.id.contentFrame);
+//                    getSupportFragmentManager(), newsFragment, R.id.contentFrame);
 //        }
 //
-//        DiscoverGamesPresenter gamesPresenter = new DiscoverGamesPresenter(
-//                DataProvider.provideGamesRepository(HomeActivity.this), discoverGamesFragment);
+//        NewsPresenter newsPresenter = new NewsPresenter(
+//                DataProvider.provideNewsRepository(HomeActivity.this), newsFragment);
+
+
+        DiscoverGamesFragment discoverGamesFragment =
+                (DiscoverGamesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (discoverGamesFragment == null) {
+            discoverGamesFragment = DiscoverGamesFragment.newInstance();
+
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(), discoverGamesFragment, R.id.contentFrame);
+        }
+
+        DiscoverGamesPresenter gamesPresenter = new DiscoverGamesPresenter(
+                DataProvider.provideGamesRepository(HomeActivity.this), discoverGamesFragment);
 
 
 //        SearchFragment searchFragment =
