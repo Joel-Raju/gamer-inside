@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/news_article_card_image"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/news_card_item_height"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitXY"
             app:layout_constraintLeft_toLeftOf="parent"

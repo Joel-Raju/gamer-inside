@@ -19,6 +19,8 @@
 
     <style name="ToolbarStyle" parent="AppTheme.AppBarOverlay">
         <item name="android:background">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:color">@color/white</item>
     </style>
 
 </resources>

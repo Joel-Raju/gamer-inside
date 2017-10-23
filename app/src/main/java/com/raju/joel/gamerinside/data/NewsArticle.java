@@ -45,56 +45,28 @@ public class NewsArticle {
         return mId;
     }
 
-    public void setId(String mId) {
-        this.mId = mId;
-    }
-
     public String getTitle() {
         return mTitle;
-    }
-
-    public void setTitle(String mTitle) {
-        this.mTitle = mTitle;
     }
 
     public String getSummary() {
         return mSummary;
     }
 
-    public void setSummary(String mSummary) {
-        this.mSummary = mSummary;
-    }
-
     public String getAuthor() {
         return mAuthor;
-    }
-
-    public void setAuthor(String mAuthor) {
-        this.mAuthor = mAuthor;
     }
 
     public String getCreatedTimestamp() {
         return mCreatedTimestamp;
     }
 
-    public void setCreatedTimestamp(String mCreatedTimestamp) {
-        this.mCreatedTimestamp = mCreatedTimestamp;
-    }
-
     public String getImageLarge() {
         return mImageLarge;
     }
 
-    public void setImageLarge(String mImageLarge) {
-        this.mImageLarge = mImageLarge;
-    }
-
     public PulseImage getPulseImage() {
         return mPulseImage;
-    }
-
-    public void setPulseImage(PulseImage mPulseImage) {
-        this.mPulseImage = mPulseImage;
     }
 
     public static class PulseImage {

@@ -11,6 +11,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="news_detail_goto_button">Read Article</string>
+    <string name="news_detail_author_prefix">by &#160;</string>
+    <string name="news_detail_created_date_prefix">on &#160;</string>
+
 
     <string name="discover_game_popular_games">Popular Now</string>
     <string name="discover_game_most_anticipated">Most Anticipated</string>

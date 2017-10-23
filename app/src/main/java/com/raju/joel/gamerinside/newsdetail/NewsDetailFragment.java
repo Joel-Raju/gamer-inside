@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.NewsArticle;
+import com.raju.joel.gamerinside.util.TextUtils;
 import com.squareup.picasso.Picasso;
 
 
@@ -24,6 +26,9 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
     private static final String IMAGE_BASE_URL = "https://images.igdb.com/igdb/image/upload/t_screenshot_med/";
 
     private static final String IMAGE_FILE_EXTENSION = ".png";
+
+    private static final String AUTHOR_ANONYMOUS = "anonymous";
+
 
     private NewsDetailContract.Presenter mPresenter;
 
@@ -38,6 +43,12 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
     private RelativeLayout mContent;
 
     private RelativeLayout mContentLoading;
+
+    private Toolbar mToolbar;
+
+    private TextView mCreatedDate;
+
+    private TextView mAuthor;
 
 
     public NewsDetailFragment() {
@@ -65,13 +76,23 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
 
         View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
 
+        mToolbar = (Toolbar) view.findViewById(R.id.game_detail_toolbar);
         mContent = (RelativeLayout) view.findViewById(R.id.content);
         mContentLoading = (RelativeLayout) view.findViewById(R.id.content_loading_progress);
         mNewsTitle = (TextView) view.findViewById(R.id.news_article_title);
         mNewsSummary = (TextView) view.findViewById(R.id.news_article_description);
+        mCreatedDate = (TextView) view.findViewById(R.id.news_article_date);
+        mAuthor = (TextView) view.findViewById(R.id.news_article_author);
         mNewsImage = (ImageView) view.findViewById(R.id.news_article_image);
         mNewsReadMore = (TextView) view.findViewById(R.id.go_to_article);
 
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         mNewsReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +134,23 @@ public class NewsDetailFragment extends Fragment implements NewsDetailContract.V
 
         mNewsTitle.setText(article.getTitle());
         mNewsSummary.setText(article.getSummary());
+        showCreatedTime(article.getCreatedTimestamp());
+        showAuthor(article.getAuthor());
         Picasso.with(getContext())
                 .load(getNewsArticleImage(article.getPulseImage().getCloudId()))
                 .into(mNewsImage);
+    }
+
+    private void showCreatedTime(String createdTime) {
+        String createdTimeString = TextUtils.getFormatedDateStringFromUnixEpoch(createdTime,
+                "dd MMM YYYY");
+        mCreatedDate.setText(createdTimeString);
+    }
+
+    private void showAuthor(String author) {
+        author = (author == null || author.isEmpty()) ? AUTHOR_ANONYMOUS : author;
+        author = TextUtils.formatStringToGivenLength(author, 25);
+        mAuthor.setText(author);
     }
 
     @Override
