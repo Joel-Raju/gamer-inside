@@ -26,10 +26,7 @@ public class AppNavigationViewAsBottomNavigationImplementation
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         final NavigationItemEnum navItem = NavigationItemEnum.getById(item.getItemId());
-        if (navItem != null) {
-            itemSelected(navItem);
-            return true;
-        }
+        itemSelected(navItem);
         return false;
     }
 

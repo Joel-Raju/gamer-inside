@@ -23,11 +23,14 @@ public abstract class AppNavigationViewAbstractImplementation implements AppNavi
 
     protected NavigationItemEnum mSelfItem;
 
+    private NavigationListener mNavigationListener;
+
 
     @Override
-    public void activityReady(Activity activity, NavigationModel.NavigationItemEnum item) {
+    public void activityReady(Activity activity, NavigationModel.NavigationItemEnum item, NavigationListener navigationListener) {
         mActivity = activity;
         mSelfItem = item;
+        mNavigationListener = navigationListener;
         setupView();
     }
 
@@ -48,23 +51,13 @@ public abstract class AppNavigationViewAbstractImplementation implements AppNavi
 
     @Override
     public void itemSelected(NavigationModel.NavigationItemEnum item) {
-//        if (item == NavigationItemEnum.NEWS) {
-//            NewsFragment newsFragment = (NewsFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-//            if (newsFragment == null) {
-//                newsFragment = NewsFragment.newInstance();
-//
-//                ActivityUtils.addFragmentToActivity(
-//                        getContext().  getF gets getSupportFragmentManager(), newsFragment, R.id.contentFrame);
-//            }
-//
-//        NewsPresenter newsPresenter = new NewsPresenter(
-//                DataProvider.provideNewsRepository(HomeActivity.this), newsFragment);
-//
-//        } else if (item == NavigationItemEnum.DISCOVER) {
-//
-//        } else if (item == NavigationItemEnum.SEARCH) {
-//
-//        }
+        if (item == NavigationItemEnum.NEWS) {
+            mNavigationListener.showNewFragment();
+        } else if (item == NavigationItemEnum.DISCOVER) {
+            mNavigationListener.showDiscoverFragment();
+        } else if (item == NavigationItemEnum.SEARCH) {
+            mNavigationListener.showSearchFragment();
+        }
     }
 
     @Override

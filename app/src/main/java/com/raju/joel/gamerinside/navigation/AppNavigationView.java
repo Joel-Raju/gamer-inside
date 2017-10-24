@@ -8,7 +8,7 @@ import android.app.Activity;
 
 public interface AppNavigationView {
 
-    void activityReady(Activity activity, NavigationModel.NavigationItemEnum item);
+    void activityReady(Activity activity, NavigationModel.NavigationItemEnum item, NavigationListener navigationListener);
 
     void setupView();
 

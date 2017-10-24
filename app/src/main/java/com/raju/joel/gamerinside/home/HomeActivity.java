@@ -21,6 +21,7 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+        trySetupNavigationView();
 
         //News
 //        NewsFragment newsFragment =
@@ -36,17 +37,17 @@ public class HomeActivity extends BaseActivity {
 //                DataProvider.provideNewsRepository(HomeActivity.this), newsFragment);
 
 
-        DiscoverGamesFragment discoverGamesFragment =
-                (DiscoverGamesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (discoverGamesFragment == null) {
-            discoverGamesFragment = DiscoverGamesFragment.newInstance();
-
-            ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), discoverGamesFragment, R.id.contentFrame);
-        }
-
-        DiscoverGamesPresenter gamesPresenter = new DiscoverGamesPresenter(
-                DataProvider.provideGamesRepository(HomeActivity.this), discoverGamesFragment);
+//        DiscoverGamesFragment discoverGamesFragment =
+//                (DiscoverGamesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+//        if (discoverGamesFragment == null) {
+//            discoverGamesFragment = DiscoverGamesFragment.newInstance();
+//
+//            ActivityUtils.addFragmentToActivity(
+//                    getSupportFragmentManager(), discoverGamesFragment, R.id.contentFrame);
+//        }
+//
+//        DiscoverGamesPresenter gamesPresenter = new DiscoverGamesPresenter(
+//                DataProvider.provideGamesRepository(HomeActivity.this), discoverGamesFragment);
 
 
 //        SearchFragment searchFragment =
