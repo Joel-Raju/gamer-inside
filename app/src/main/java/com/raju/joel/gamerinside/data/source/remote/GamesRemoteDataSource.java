@@ -31,8 +31,11 @@ public class GamesRemoteDataSource implements GamesDataSource {
 
     private static int UPCOMING_GAMES_PAGINATION_OFFSET = 0;
 
+    private static int SEARCH_GAMES_PAGINATION_OFFSET = 0;
+
     private static final int GAMES_PAGINATION_LIMIT = 6;
 
+    private static final int SEARCHED_GAMES_PAGINATION_LIMIT = 9;
 
     public static GamesRemoteDataSource getInstance(Context context) {
         if (INSTANCE == null) {
@@ -84,6 +87,7 @@ public class GamesRemoteDataSource implements GamesDataSource {
                     callback.onDataNotAvailable();
                     return;
                 }
+                MOST_ANTICIPATED_GAMES_PAGINATION_OFFSET += GAMES_PAGINATION_LIMIT;
                 callback.onGamesLoaded(response.body());
             }
 
@@ -110,6 +114,7 @@ public class GamesRemoteDataSource implements GamesDataSource {
                     callback.onDataNotAvailable();
                     return;
                 }
+                UPCOMING_GAMES_PAGINATION_OFFSET += GAMES_PAGINATION_LIMIT;
                 callback.onGamesLoaded(response.body());
             }
 
@@ -147,7 +152,8 @@ public class GamesRemoteDataSource implements GamesDataSource {
     @Override
     public void searchForGames(@NonNull String searchKeyword, @NonNull final LoadGamesCallback callback) {
         String searchTerm = searchKeyword;
-        mService.searchForGames(searchTerm).enqueue(new Callback<List<Game>>() {
+        mService.searchForGames(searchTerm, SEARCHED_GAMES_PAGINATION_LIMIT,
+                SEARCH_GAMES_PAGINATION_OFFSET).enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 //TODO: check 404, 403 etc
@@ -156,7 +162,10 @@ public class GamesRemoteDataSource implements GamesDataSource {
                     callback.onDataNotAvailable();
                     return;
                 }
-                callback.onGamesLoaded(response.body());
+                if (response.code() == RemoteServiceUtils.STATUS_CODE_OK) {
+                    SEARCH_GAMES_PAGINATION_OFFSET += SEARCHED_GAMES_PAGINATION_LIMIT;
+                    callback.onGamesLoaded(response.body());
+                }
             }
 
             @Override
@@ -164,6 +173,11 @@ public class GamesRemoteDataSource implements GamesDataSource {
                 callback.onDataNotAvailable();
             }
         });
+    }
+
+    @Override
+    public void clearSearchedGames() {
+
     }
 
     @Override

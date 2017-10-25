@@ -167,10 +167,12 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
             showInitialReleaseDate(game.getInitialReleaseDate());
         }
 
+        // TODO - handle rating null
         if (game.getCriticsRating() != null && !game.getCriticsRating().isEmpty()) {
             showCriticsRating(game.getCriticsRating());
         }
 
+        // TODO - handle rating null
         if (game.getGamersRating() != null && !game.getGamersRating().isEmpty()) {
             showGamerRating(game.getGamersRating());
         }

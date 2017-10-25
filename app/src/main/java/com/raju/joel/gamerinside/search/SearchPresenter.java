@@ -6,6 +6,7 @@ import com.raju.joel.gamerinside.data.Game;
 import com.raju.joel.gamerinside.data.source.GamesDataSource;
 import com.raju.joel.gamerinside.data.source.GamesRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,12 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void loadSearchResults(String searchTerm) {
         loadSearchResults(searchTerm, false);
+    }
+
+    @Override
+    public void clearSearchedResults() {
+        mGamesRepository.clearSearchedGames();
+        mView.showSearchResults(new ArrayList<Game>(0));
     }
 
     @Override

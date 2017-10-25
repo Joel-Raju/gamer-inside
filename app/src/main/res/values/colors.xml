@@ -12,7 +12,7 @@
 
     <color name="colorPrimary">#434343</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#000000</color>
     
     <color name="white">#FFFFFF</color>
 </resources>

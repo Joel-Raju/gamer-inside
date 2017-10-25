@@ -99,6 +99,7 @@ public interface RemoteService {
             @Query(LIMIT_QUERY_PARAM) int limit,
             @Query(OFFSET_QUERY_PARAM) int offset);
 
+
     /**
      * Get the detail of a particular game by Id
      * @param gameIds
@@ -115,9 +116,14 @@ public interface RemoteService {
     /**
      * Search for games by the given name
      * @param searchTerm
+     * @param limit
+     * @param offset
      * @return
      */
-    @GET("/games/?fields=name,cover&filter[cover][exists]&order=popularity:desc")
-    Call<List<Game>> searchForGames(@Query(SEARCH_QUERY_PARAM) String searchTerm);
+    @GET("/games/?fields=name,cover&filter[cover][exists]")
+    Call<List<Game>> searchForGames(
+            @Query(SEARCH_QUERY_PARAM) String searchTerm,
+            @Query(LIMIT_QUERY_PARAM) int limit,
+            @Query(OFFSET_QUERY_PARAM) int offset);
 
 }

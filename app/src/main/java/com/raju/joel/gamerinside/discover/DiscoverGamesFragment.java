@@ -52,14 +52,14 @@ public class DiscoverGamesFragment extends Fragment implements DiscoverGamesCont
     private OnBottomReachedListener mMostAnticipatedGamesScrollEndListener = new OnBottomReachedListener() {
         @Override
         public void onBottomReached() {
-            //mPresenter.loadMostAnticipatedGames(false);
+            mPresenter.loadMostAnticipatedGames(false);
         }
     };
 
     private OnBottomReachedListener mUpcomingGamesScrollEndListener = new OnBottomReachedListener() {
         @Override
         public void onBottomReached() {
-            //mPresenter.loadUpcomingGames(false);
+            mPresenter.loadUpcomingGames(false);
         }
     };
 

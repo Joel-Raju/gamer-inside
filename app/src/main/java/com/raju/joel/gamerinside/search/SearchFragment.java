@@ -24,8 +24,7 @@ import java.util.List;
 
 
 public class SearchFragment extends Fragment implements SearchContract.View,
-
-        SearchView.OnQueryTextListener {
+        SearchView.OnQueryTextListener, OnBottomReachedListener {
 
     private SearchContract.Presenter mPresenter;
 
@@ -48,12 +47,7 @@ public class SearchFragment extends Fragment implements SearchContract.View,
 
     private static int ITEM_SPAN_COUNT = 3;
 
-    private OnBottomReachedListener mSearchedListScrollEndReached = new OnBottomReachedListener() {
-        @Override
-        public void onBottomReached() {
-            //mPresenter.loadSearchResults();
-        }
-    };
+    private String mSearchQuery;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -68,7 +62,7 @@ public class SearchFragment extends Fragment implements SearchContract.View,
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
         mAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                mGameListener, R.layout.item_game_card_grid, mSearchedListScrollEndReached);
+                mGameListener, R.layout.item_game_card_grid, this);
     }
 
     @Override
@@ -90,18 +84,21 @@ public class SearchFragment extends Fragment implements SearchContract.View,
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (query.length() > MIN_KEYWORD_LENGTH) {
-            performSearch(query);
-        }
+        mSearchQuery = query;
+        performSearch(query);
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String query) {
-        if (query.length() > MIN_KEYWORD_LENGTH) {
-            performSearch(query);
-        }
+        mSearchQuery = query;
+        performSearch(query);
         return false;
+    }
+
+    @Override
+    public void onBottomReached() {
+        mPresenter.loadSearchResults(mSearchQuery);
     }
 
     @Override
@@ -110,14 +107,17 @@ public class SearchFragment extends Fragment implements SearchContract.View,
     }
 
     private void performSearch(final String searchString) {
-        mHandler.removeCallbacks(mRunnable);
-        mRunnable = new Runnable() {
-            @Override
-            public void run() {
-                mPresenter.loadSearchResults(searchString);
-            }
-        };
-        mHandler.postDelayed(mRunnable, SEARCH_DEBOUNCE_TIME_IN_MS);
+        if (searchString.length() > MIN_KEYWORD_LENGTH) {
+            mPresenter.clearSearchedResults();
+            mHandler.removeCallbacks(mRunnable);
+            mRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    mPresenter.loadSearchResults(searchString);
+                }
+            };
+            mHandler.postDelayed(mRunnable, SEARCH_DEBOUNCE_TIME_IN_MS);
+        }
     }
 
     @Override

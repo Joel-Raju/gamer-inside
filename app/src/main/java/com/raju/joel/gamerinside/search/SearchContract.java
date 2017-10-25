@@ -30,5 +30,7 @@ public interface SearchContract {
         void loadSearchResults(String searchTerm);
 
         void openGameDetail(Game game);
+
+        void clearSearchedResults();
     }
 }

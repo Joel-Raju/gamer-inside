@@ -28,7 +28,6 @@ public class RemoteServiceGenerator {
     }
 
     public static <S> S createRemoteService(Class<S> remoteServiceClass, String authToken) {
-        authToken = "b10c5c2e8f444ba0b88218e1f8caaa9c";
         if (!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor authInterceptor = new AuthenticationInterceptor(authToken);
 

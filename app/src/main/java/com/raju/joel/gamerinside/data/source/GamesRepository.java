@@ -167,7 +167,7 @@ public class GamesRepository implements GamesDataSource {
             @Override
             public void onGamesLoaded(List<Game> games) {
                 mSearchedGamesCache = refreshSearchedGamesCache(games);
-                callback.onGamesLoaded(new ArrayList<Game>(mSearchedGamesCache.values()));
+                callback.onGamesLoaded(new ArrayList<>(mSearchedGamesCache.values()));
             }
 
             @Override
@@ -240,6 +240,11 @@ public class GamesRepository implements GamesDataSource {
         }
         cacheFlag = false;
         return cache;
+    }
+
+    @Override
+    public void clearSearchedGames() {
+        mSearchedGamesCache = resetCache(mSearchedGamesCache, new ArrayList<Game>(0), mSearchedGamesCacheIsDirty);
     }
 
     @Override

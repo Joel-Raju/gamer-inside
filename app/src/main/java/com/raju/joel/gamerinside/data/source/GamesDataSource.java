@@ -41,4 +41,6 @@ public interface GamesDataSource {
 
     void refreshSearchedGames();
 
+    void clearSearchedGames();
+
 }
