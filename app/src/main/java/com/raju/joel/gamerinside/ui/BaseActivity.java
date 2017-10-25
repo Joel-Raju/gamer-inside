@@ -31,8 +31,6 @@ import com.raju.joel.gamerinside.util.ActivityUtils;
 public abstract class BaseActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener, NavigationListener {
 
-    private AppNavigationView mAppNavigationView;
-
     NewsFragment newsFragment;
 
     DiscoverGamesFragment discoverGamesFragment;
@@ -59,9 +57,10 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void trySetupNavigationView() {
         final BottomNavigationView mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         if (mBottomNavigationView != null) {
-            mAppNavigationView = new AppNavigationViewAsBottomNavigationImplementation(mBottomNavigationView);
-            mAppNavigationView.activityReady(this, getSelfNavDrawerItem(), this);
+            AppNavigationView appNavigationView = new AppNavigationViewAsBottomNavigationImplementation(mBottomNavigationView);
+            appNavigationView.activityReady(this, getSelfNavDrawerItem(), this);
         }
+        showNewFragment();
     }
 
     protected NavigationModel.NavigationItemEnum getSelfNavDrawerItem() {
@@ -76,40 +75,16 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
 
     @Override
-    public void showSearchFragment() {
-        if (searchFragment == null) {
-            searchFragment = SearchFragment.newInstance();
-            if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), searchFragment)) {
-                ActivityUtils.attachFragmentToActivity(getSupportFragmentManager(), searchFragment);
-            } else {
-                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                        searchFragment, R.id.contentFrame);
-            }
-            SearchPresenter searchPresenter =
-                    new SearchPresenter(DataProvider.provideGamesRepository(this), searchFragment);
-        }
-    }
-
-    @Override
     public void showNewFragment() {
         if (newsFragment == null) {
             newsFragment = NewsFragment.newInstance();
-//            if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), searchFragment)) {
-//                ActivityUtils.detachFragmentFromActivity(getSupportFragmentManager(), searchFragment);
-//            }
-//
-//            if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), discoverGamesFragment)) {
-//                ActivityUtils.detachFragmentFromActivity(getSupportFragmentManager(), discoverGamesFragment);
-//            }
-
-            if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), newsFragment)) {
-                ActivityUtils.attachFragmentToActivity(getSupportFragmentManager(), newsFragment);
-            } else {
-                ActivityUtils.addFragmentToActivity(
-                        getSupportFragmentManager(), newsFragment, R.id.contentFrame);
-            }
         }
-
+        if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), newsFragment)) {
+            ActivityUtils.attachFragmentToActivity(getSupportFragmentManager(), newsFragment);
+        } else {
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(), newsFragment, R.id.contentFrame);
+        }
         NewsPresenter newsPresenter = new NewsPresenter(
                 DataProvider.provideNewsRepository(this), newsFragment);
     }
@@ -118,17 +93,40 @@ public abstract class BaseActivity extends AppCompatActivity implements
     public void showDiscoverFragment() {
         if (discoverGamesFragment == null) {
             discoverGamesFragment = DiscoverGamesFragment.newInstance();
-            if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), discoverGamesFragment)) {
-                ActivityUtils.attachFragmentToActivity(getSupportFragmentManager(), discoverGamesFragment);
-            } else {
-                ActivityUtils.addFragmentToActivity(
-                        getSupportFragmentManager(), discoverGamesFragment, R.id.contentFrame);
-            }
         }
-
+        if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), discoverGamesFragment)) {
+            ActivityUtils.attachFragmentToActivity(getSupportFragmentManager(), discoverGamesFragment);
+        } else {
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(), discoverGamesFragment, R.id.contentFrame);
+        }
         DiscoverGamesPresenter gamesPresenter = new DiscoverGamesPresenter(
                 DataProvider.provideGamesRepository(this), discoverGamesFragment);
     }
 
+    @Override
+    public void showSearchFragment() {
+        if (searchFragment == null) {
+            searchFragment = SearchFragment.newInstance();
+        }
+        if (ActivityUtils.isFragmentPreviouslyAddedToActivity(getSupportFragmentManager(), searchFragment)) {
+            ActivityUtils.attachFragmentToActivity(getSupportFragmentManager(), searchFragment);
+        } else {
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    searchFragment, R.id.contentFrame);
+        }
+        SearchPresenter searchPresenter =
+                new SearchPresenter(DataProvider.provideGamesRepository(this), searchFragment);
+    }
 
+    @Override
+    public void detachFragmentByNavigationItem(NavigationModel.NavigationItemEnum navigationItem) {
+        if (navigationItem == NavigationModel.NavigationItemEnum.NEWS) {
+            ActivityUtils.detachFragmentFromActivity(getSupportFragmentManager(), newsFragment);
+        } else if (navigationItem == NavigationModel.NavigationItemEnum.DISCOVER) {
+            ActivityUtils.detachFragmentFromActivity(getSupportFragmentManager(), discoverGamesFragment);
+        } else if (navigationItem == NavigationModel.NavigationItemEnum.SEARCH) {
+            ActivityUtils.detachFragmentFromActivity(getSupportFragmentManager(), searchFragment);
+        }
+    }
 }

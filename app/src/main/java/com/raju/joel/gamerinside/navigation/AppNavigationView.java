@@ -20,5 +20,4 @@ public interface AppNavigationView {
 
     void showNavigation();
 
-
 }

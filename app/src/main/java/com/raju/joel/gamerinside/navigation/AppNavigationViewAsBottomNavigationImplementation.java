@@ -30,8 +30,6 @@ public class AppNavigationViewAsBottomNavigationImplementation
         return false;
     }
 
-
-
     @Override
     public void setupView() {
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);

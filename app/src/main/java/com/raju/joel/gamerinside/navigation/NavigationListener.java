@@ -11,4 +11,6 @@ public interface NavigationListener {
     void showDiscoverFragment();
 
     void showSearchFragment();
+
+    void detachFragmentByNavigationItem(NavigationModel.NavigationItemEnum navigation);
 }
