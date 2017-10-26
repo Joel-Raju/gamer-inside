@@ -9,35 +9,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.NewsArticle;
 import com.raju.joel.gamerinside.newsdetail.NewsDetailActivity;
+import com.raju.joel.gamerinside.newsdetail.NewsListener;
 import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsFragment extends Fragment implements NewsContract.View {
+public class NewsFragment extends Fragment implements NewsContract.View, NewsListener,
+        OnBottomReachedListener {
 
     private NewsContract.Presenter mPresenter;
 
     private NewsAdapter mNewsAdapter;
 
-    private OnBottomReachedListener mNewsListOnBottomReachedListener = new OnBottomReachedListener() {
-        @Override
-        public void onBottomReached() {
-            mPresenter.loadNews(false);
-        }
-    };
+    private RelativeLayout mContent;
 
+    private RelativeLayout mContentLoading;
 
-    NewsArticleListener mNewsArticleListener = new NewsArticleListener() {
-        @Override
-        public void onNewsArticleClickListener(NewsArticle clickedNewsArticle) {
-            mPresenter.openNewsArticleDetails(clickedNewsArticle);
-        }
-    };
 
     public NewsFragment() {
         // Required empty public constructor
@@ -50,8 +43,7 @@ public class NewsFragment extends Fragment implements NewsContract.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNewsAdapter =  new NewsAdapter(getContext(), new ArrayList<NewsArticle>(0),
-                mNewsArticleListener, mNewsListOnBottomReachedListener);
+        mNewsAdapter =  new NewsAdapter(getContext(), new ArrayList<NewsArticle>(0), this, this);
     }
 
     @Override
@@ -66,6 +58,8 @@ public class NewsFragment extends Fragment implements NewsContract.View {
         View root = inflater.inflate(R.layout.fragment_news, container, false);
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.news_recycler_view);
+        mContent = (RelativeLayout) root.findViewById(R.id.content);
+        mContentLoading = (RelativeLayout) root.findViewById(R.id.content_loading_progress);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         recyclerView.setLayoutManager(layoutManager);
@@ -87,7 +81,17 @@ public class NewsFragment extends Fragment implements NewsContract.View {
 
     @Override
     public void setLoadingIndicator(boolean active) {
+        toggleContentVisibility(active);
+    }
 
+    private void toggleContentVisibility(boolean visible) {
+        if (!visible) {
+            mContentLoading.setVisibility(View.GONE);
+            mContent.setVisibility(View.VISIBLE);
+        } else {
+            mContent.setVisibility(View.GONE);
+            mContentLoading.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -108,12 +112,17 @@ public class NewsFragment extends Fragment implements NewsContract.View {
     }
 
     @Override
-    public boolean isActive() {
-        return isAdded();
+    public void onBottomReached() {
+        mPresenter.loadNews(false);
     }
 
-    public interface NewsArticleListener {
+    @Override
+    public void onNewsArticleClickListener(NewsArticle clickedNewsArticle) {
+        mPresenter.openNewsArticleDetails(clickedNewsArticle);
+    }
 
-        void onNewsArticleClickListener(NewsArticle clickedNewsArticle);
+    @Override
+    public boolean isActive() {
+        return isAdded();
     }
 }

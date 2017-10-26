@@ -11,6 +11,7 @@ import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.Game;
@@ -24,7 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DiscoverGamesFragment extends Fragment implements DiscoverGamesContract.View {
+public class DiscoverGamesFragment extends Fragment implements DiscoverGamesContract.View,
+        GameListener {
+
+    private RelativeLayout mContent;
+
+    private RelativeLayout mContentLoading;
 
     private DiscoverGamesContract.Presenter mPresenter;
 
@@ -33,14 +39,6 @@ public class DiscoverGamesFragment extends Fragment implements DiscoverGamesCont
     private GameCollectionAdapter mMostAnticipatedGamesAdapter;
 
     private GameCollectionAdapter mUpcomingGamesAdapter;
-
-
-    private GameListener gameListener = new GameListener() {
-        @Override
-        public void onGameClickListener(Game clickedGame) {
-            mPresenter.openGameDetail(clickedGame);
-        }
-    };
 
     private OnBottomReachedListener mPopularGamesScrollEndListener = new OnBottomReachedListener() {
         @Override
@@ -76,12 +74,12 @@ public class DiscoverGamesFragment extends Fragment implements DiscoverGamesCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPopularGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                gameListener, R.layout.item_game_card, mPopularGamesScrollEndListener);
+        mPopularGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0), this,
+                R.layout.item_game_card, mPopularGamesScrollEndListener);
         mMostAnticipatedGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                gameListener, R.layout.item_game_card, mMostAnticipatedGamesScrollEndListener);
-        mUpcomingGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0),
-                gameListener, R.layout.item_game_card, mUpcomingGamesScrollEndListener);
+                this, R.layout.item_game_card, mMostAnticipatedGamesScrollEndListener);
+        mUpcomingGamesAdapter = new GameCollectionAdapter(getContext(), new ArrayList<Game>(0), this,
+                R.layout.item_game_card, mUpcomingGamesScrollEndListener);
     }
 
     @Nullable
@@ -96,6 +94,8 @@ public class DiscoverGamesFragment extends Fragment implements DiscoverGamesCont
         RecyclerView popularGamesRecyclerView = (RecyclerView) view.findViewById(R.id.popular_games_list);
         RecyclerView mostAnticipatedGamesRecyclerView = (RecyclerView) view.findViewById(R.id.most_anticipated_games_list);
         RecyclerView upcomingGamesRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_games_list);
+        mContent = (RelativeLayout) view.findViewById(R.id.content);
+        mContentLoading = (RelativeLayout) view.findViewById(R.id.content_loading_progress);
 
 
         // TODO: check https://github.com/rubensousa/RecyclerViewSnap
@@ -124,13 +124,28 @@ public class DiscoverGamesFragment extends Fragment implements DiscoverGamesCont
     }
 
     @Override
+    public void onGameClickListener(Game clickedGame) {
+        mPresenter.openGameDetail(clickedGame);
+    }
+
+    @Override
     public void setPresenter(DiscoverGamesContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
     @Override
     public void setLoadingIndicator(boolean active) {
+        toggleContentVisibility(active);
+    }
 
+    private void toggleContentVisibility(boolean visible) {
+        if (!visible) {
+            mContentLoading.setVisibility(View.GONE);
+            mContent.setVisibility(View.VISIBLE);
+        } else {
+            mContent.setVisibility(View.GONE);
+            mContentLoading.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".newsdetail.NewsDetailActivity" />
-        <activity android:name=".gamecollection.GameCollectionActivity"></activity>
+        <activity android:name=".gamecollection.GameCollectionActivity" />
+        <activity android:name=".webpage.WebpageActivity"></activity>
     </application>
 
 </manifest>

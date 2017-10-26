@@ -21,7 +21,7 @@ public class RemoteServiceGenerator {
 
     private static Retrofit mRetrofit = mBuilder.build();
 
-    private static OkHttpClient.Builder mHttpCleint = new OkHttpClient.Builder();
+    private static OkHttpClient.Builder mHttpClient = new OkHttpClient.Builder();
 
     public static <S> S createRemoteService(Class<S> remoteServiceClass) {
         return createRemoteService(remoteServiceClass, null);
@@ -31,15 +31,15 @@ public class RemoteServiceGenerator {
         if (!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor authInterceptor = new AuthenticationInterceptor(authToken);
 
-            if (!mHttpCleint.interceptors().contains(authInterceptor)) {
-                mHttpCleint.addInterceptor(authInterceptor);
+            if (!mHttpClient.interceptors().contains(authInterceptor)) {
+                mHttpClient.addInterceptor(authInterceptor);
             }
 
-            if (!mHttpCleint.interceptors().contains(mLoggingInterceptor)) {
-                mHttpCleint.addInterceptor(mLoggingInterceptor);
+            if (!mHttpClient.interceptors().contains(mLoggingInterceptor)) {
+                mHttpClient.addInterceptor(mLoggingInterceptor);
             }
 
-            mBuilder.client(mHttpCleint.build());
+            mBuilder.client(mHttpClient.build());
             mRetrofit = mBuilder.build();
         }
 

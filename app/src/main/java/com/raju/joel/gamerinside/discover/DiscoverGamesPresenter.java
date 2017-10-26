@@ -30,6 +30,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
 
     @Override
     public void start() {
+        mView.setLoadingIndicator(true);
         loadPopularGames(false);
         loadMostAnticipatedGames(false);
         loadUpcomingGames(false);
@@ -68,6 +69,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
+                mView.setLoadingIndicator(false);
                 mView.showLoadingPopularGamesError();
             }
         });
@@ -104,6 +106,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
+                mView.setLoadingIndicator(false);
                 mView.showLoadingMostlyAnticipatedGamesError();
             }
         });
@@ -140,6 +143,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
+                mView.setLoadingIndicator(false);
                 mView.showLoadingUpcomingGamesError();
             }
         });
@@ -153,7 +157,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
 
     private void processPopularGames(List<Game> games) {
         if (games.isEmpty()) {
-
+            mView.showLoadingPopularGamesError();
         } else {
             mView.showPopularGames(games);
         }
@@ -161,7 +165,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
 
     private void processMostAnticipatedGames(List<Game> games) {
         if (games.isEmpty()) {
-
+            mView.showLoadingMostlyAnticipatedGamesError();
         } else {
             mView.showMostAnticipatedGames(games);
         }
@@ -169,7 +173,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
 
     private void processUpcomingGames(List<Game> games) {
         if (games.isEmpty()) {
-
+            mView.showLoadingUpcomingGamesError();
         } else {
             mView.showUpcomingGames(games);
         }

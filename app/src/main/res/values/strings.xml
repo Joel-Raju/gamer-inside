@@ -27,6 +27,6 @@
     <string name="game_detail_platforms_label">Available On:</string>
     <string name="game_detail_image_gallery_label">Image Gallery</string>
     <string name="game_detail_video_gallery_label">Video Gallery</string>
-    
+
     <string name="hint_search_game_fragment">Search for a game</string>
 </resources>

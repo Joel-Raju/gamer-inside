@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.NewsArticle;
+import com.raju.joel.gamerinside.newsdetail.NewsListener;
 import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +27,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
 
     public static final String IMAGE_FILE_EXTENSION = ".png";
 
-    private NewsFragment.NewsArticleListener mNewsArticleListener;
+    private NewsListener mNewsArticleListener;
 
     private List<NewsArticle> mNewsArticleList;
 
@@ -35,7 +36,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
     private OnBottomReachedListener mOnBottomReachedListener;
 
     public NewsAdapter(Context context, List<NewsArticle> newsArticleList,
-                       NewsFragment.NewsArticleListener newsArticleListener,
+                       NewsListener newsArticleListener,
                        OnBottomReachedListener onBottomReachedListener) {
         this.mContext = context;
         setList(newsArticleList);

@@ -35,7 +35,7 @@ public class NewsPresenter implements NewsContract.Presenter {
 
     @Override
     public void loadNews(boolean forceUpdate) {
-        loadNews(forceUpdate || mFirstLoad, false);
+        loadNews(forceUpdate || mFirstLoad, true);
         mFirstLoad = false;
     }
 
@@ -69,6 +69,7 @@ public class NewsPresenter implements NewsContract.Presenter {
                 if (!mNewsView.isActive()) {
                     return;
                 }
+                mNewsView.setLoadingIndicator(false);
                 mNewsView.showLoadingNewsError();
             }
         });
