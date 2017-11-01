@@ -1,6 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,12 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:padding="0dp"
-            tools:context="com.raju.joel.gamerinside.newsdetail.NewsDetailFragment">
+            android:orientation="vertical">
 
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
@@ -74,7 +72,7 @@
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/news_detail_content_bottom_margin"
+                android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
@@ -98,6 +96,7 @@
                         android:layout_marginLeft="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginRight="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginTop="@dimen/news_detail_title_vertical_margin"
+                        android:fontFamily="@font/medulaone_regular"
                         android:textSize="@dimen/news_detail_title_size" />
 
                     <TextView
@@ -108,6 +107,7 @@
                         android:layout_marginLeft="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginRight="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginTop="@dimen/news_detail_title_vertical_margin"
+                        android:fontFamily="@font/opensans_regular"
                         android:textSize="@dimen/news_detail_description_size" />
 
                     <TextView
@@ -115,6 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
+
                         android:layout_marginBottom="@dimen/news_detail_content_bottom_margin"
                         android:layout_marginLeft="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginRight="@dimen/news_detail_content_horizontal_margin"
@@ -127,7 +128,7 @@
             </android.support.v4.widget.NestedScrollView>
 
 
-        </android.support.design.widget.CoordinatorLayout>
+        </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -140,9 +141,9 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="250dp" />
+            android:layout_centerInParent="true" />
     </RelativeLayout>
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
 
 
 

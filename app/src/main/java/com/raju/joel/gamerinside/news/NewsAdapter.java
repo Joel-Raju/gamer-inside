@@ -71,6 +71,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
         holder.newsTitle.setText(article.getTitle());
         Picasso.with(mContext)
                 .load(imageUrl)
+                .placeholder(R.drawable.placeholder_image)
                 .into(holder.newsImage);
 
         holder.newsCard.setOnClickListener(new View.OnClickListener() {

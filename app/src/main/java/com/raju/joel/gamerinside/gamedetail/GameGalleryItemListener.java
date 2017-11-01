@@ -6,7 +6,5 @@ package com.raju.joel.gamerinside.gamedetail;
 
 public interface GameGalleryItemListener {
 
-    void imageItemClickListener();
-
-    void videoItemClickListener();
+    void itemClickListener();
 }

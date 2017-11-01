@@ -11,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.Game;
@@ -33,6 +34,10 @@ public class SearchFragment extends Fragment implements SearchContract.View,
     private Handler mHandler;
 
     private Runnable mRunnable;
+
+    private RelativeLayout mContent;
+
+    private RelativeLayout mContentLoading;
 
     private GameListener mGameListener = new GameListener() {
         @Override
@@ -72,7 +77,8 @@ public class SearchFragment extends Fragment implements SearchContract.View,
 
         SearchView gameSearchView = (SearchView) rootView.findViewById(R.id.game_search);
         RecyclerView resultsView = (RecyclerView) rootView.findViewById(R.id.search_results);
-
+        mContent = (RelativeLayout) rootView.findViewById(R.id.content);
+        mContentLoading = (RelativeLayout) rootView.findViewById(R.id.content_loading_progress);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), ITEM_SPAN_COUNT);
 
         resultsView.setLayoutManager(layoutManager);
@@ -122,7 +128,17 @@ public class SearchFragment extends Fragment implements SearchContract.View,
 
     @Override
     public void setLoadingIndicator(boolean active) {
+        toggleContentVisibility(active);
+    }
 
+    private void toggleContentVisibility(boolean visible) {
+        if (!visible) {
+            mContentLoading.setVisibility(View.GONE);
+            mContent.setVisibility(View.VISIBLE);
+        } else {
+            mContent.setVisibility(View.GONE);
+            mContentLoading.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

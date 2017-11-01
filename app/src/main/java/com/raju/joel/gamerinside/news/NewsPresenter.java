@@ -35,7 +35,7 @@ public class NewsPresenter implements NewsContract.Presenter {
 
     @Override
     public void loadNews(boolean forceUpdate) {
-        loadNews(forceUpdate || mFirstLoad, true);
+        loadNews(forceUpdate || mFirstLoad, mFirstLoad);
         mFirstLoad = false;
     }
 

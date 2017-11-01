@@ -15,4 +15,6 @@
     <color name="colorAccent">#000000</color>
     
     <color name="white">#FFFFFF</color>
+
+    <color name="placeholder_image_color">#E8E8E8</color>
 </resources>

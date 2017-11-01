@@ -57,10 +57,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
-                if (showLoadingUi) {
-                    mView.setLoadingIndicator(false);
-                }
-
+                mView.setLoadingIndicator(false);
                 processPopularGames(games);
             }
 
@@ -95,9 +92,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
-                if (showLoadingUi) {
-                    mView.setLoadingIndicator(false);
-                }
+                mView.setLoadingIndicator(false);
                 processMostAnticipatedGames(games);
             }
 
@@ -132,9 +127,7 @@ public class DiscoverGamesPresenter implements DiscoverGamesContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
-                if (showLoadingUi) {
-                    mView.setLoadingIndicator(false);
-                }
+                mView.setLoadingIndicator(false);
                 processUpcomingGames(games);
             }
 

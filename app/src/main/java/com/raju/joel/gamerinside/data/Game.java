@@ -95,9 +95,17 @@ public class Game {
         @Expose
         String mName;
 
+        public String getName() {
+            return mName;
+        }
+
         @SerializedName("video_id")
         @Expose
         String mYoutubeVideoId;
+
+        public String getYoutubeVideoId() {
+            return mYoutubeVideoId;
+        }
     }
 
     public static class PEGI {

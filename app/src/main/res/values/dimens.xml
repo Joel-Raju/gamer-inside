@@ -12,11 +12,12 @@
     <dimen name="news_card_content_horizontal_margin">16dp</dimen>
     <dimen name="news_card_content_vertical_margin">16dp</dimen>
     <dimen name="news_card_item_vertical_margin">8dp</dimen>
-    <dimen name="news_card_item_title_size">16sp</dimen>
+    <dimen name="news_card_item_title_size">32sp</dimen>
 
     <dimen name="news_card_item_height">250dp</dimen>
 
     <dimen name="base_horizontal_margin">8dp</dimen>
+    <dimen name="base_vertical_margin">8dp</dimen>
 
     <dimen name="recyclerview_view_horizontal_margin">8dp</dimen>
     <dimen name="search_widget_bottom_margin">16dp</dimen>
@@ -33,7 +34,7 @@
     <dimen name="game_detail_vertical_margin">24dp</dimen>
 
     <dimen name="news_detail_content_top_margin">16dp</dimen>
-    <dimen name="news_detail_title_size">20sp</dimen>
+    <dimen name="news_detail_title_size">35sp</dimen>
     <dimen name="news_detail_image_height">250dp</dimen>
     <dimen name="news_detail_description_size">16sp</dimen>
     <dimen name="news_detail_title_vertical_margin">16dp</dimen>
