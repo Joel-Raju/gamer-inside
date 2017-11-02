@@ -21,7 +21,7 @@
 
     <string name="game_detail_summary_label">Summary</string>
     <string name="game_detail_storyline_label">Storyline</string>
-    <string name="game_detail_critics_gamers_rating">Gamers Rating</string>
+    <string name="game_detail_gamers_rating">Gamers Rating</string>
     <string name="game_detail_critics_rating_label">Critics Rating</string>
     <string name="game_detail_developers_label">Developer(s):</string>
     <string name="game_detail_platforms_label">Available On:</string>

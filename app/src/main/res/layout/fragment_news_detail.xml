@@ -37,6 +37,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
+                            android:fontFamily="@font/opensans_regular"
                             android:text="@string/news_detail_author_prefix" />
 
                         <TextView
@@ -45,24 +46,25 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_toEndOf="@id/author_prefix"
-                            android:layout_toRightOf="@id/author_prefix" />
+                            android:layout_toRightOf="@id/author_prefix"
+                            android:fontFamily="@font/opensans_regular" />
 
-                        <TextView
-                            android:id="@+id/news_article_date_prefix"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@id/author_prefix"
-                            android:text="@string/news_detail_created_date_prefix" />
+                        <!--<TextView-->
+                            <!--android:id="@+id/news_article_date_prefix"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_alignParentLeft="true"-->
+                            <!--android:layout_alignParentStart="true"-->
+                            <!--android:layout_below="@id/author_prefix"-->
+                            <!--android:fontFamily="@font/opensans_regular"-->
+                            <!--android:text="@string/news_detail_created_date_prefix" />-->
 
                         <TextView
                             android:id="@+id/news_article_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/news_article_author"
-                            android:layout_toEndOf="@id/news_article_date_prefix"
-                            android:layout_toRightOf="@id/news_article_date_prefix" />
+                            android:fontFamily="@font/opensans_regular" />
                     </RelativeLayout>
 
                 </android.support.v7.widget.Toolbar>
@@ -96,7 +98,8 @@
                         android:layout_marginLeft="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginRight="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginTop="@dimen/news_detail_title_vertical_margin"
-                        android:fontFamily="@font/medulaone_regular"
+                        android:fontFamily="@font/opensans_bold"
+                        android:textColor="@android:color/black"
                         android:textSize="@dimen/news_detail_title_size" />
 
                     <TextView
@@ -107,7 +110,9 @@
                         android:layout_marginLeft="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginRight="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginTop="@dimen/news_detail_title_vertical_margin"
-                        android:fontFamily="@font/opensans_regular"
+                        android:fontFamily="@font/librebaskerville_regular"
+                        android:lineSpacingExtra="@dimen/content_line_spacing"
+                        android:textColor="@android:color/black"
                         android:textSize="@dimen/news_detail_description_size" />
 
                     <TextView
@@ -115,11 +120,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-
                         android:layout_marginBottom="@dimen/news_detail_content_bottom_margin"
                         android:layout_marginLeft="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginRight="@dimen/news_detail_content_horizontal_margin"
                         android:layout_marginTop="@dimen/news_detail_title_vertical_margin"
+                        android:fontFamily="@font/opensans_regular"
                         android:text="@string/news_detail_goto_button"
                         android:textAlignment="textEnd" />
                 </LinearLayout>

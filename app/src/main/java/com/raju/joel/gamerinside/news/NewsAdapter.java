@@ -13,6 +13,7 @@ import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.NewsArticle;
 import com.raju.joel.gamerinside.newsdetail.NewsListener;
 import com.raju.joel.gamerinside.ui.OnBottomReachedListener;
+import com.raju.joel.gamerinside.util.TextUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -69,6 +70,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
         String imageUrl = getNewsImagePath(article.getPulseImage().getCloudId());
 
         holder.newsTitle.setText(article.getTitle());
+        holder.newsDate.setText(TextUtils.
+                getFormattedDateForArticleFromUnixEpoch(article.getCreatedTimestamp()));
         Picasso.with(mContext)
                 .load(imageUrl)
                 .placeholder(R.drawable.placeholder_image)
@@ -95,6 +98,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
         private CardView newsCard;
         private TextView newsTitle;
         private ImageView newsImage;
+        private TextView newsDate;
 
         public NewsVH(View itemView) {
             super(itemView);
@@ -102,6 +106,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsVH> {
             newsCard  = (CardView)  itemView.findViewById(R.id.news_card);
             newsTitle = (TextView)  itemView.findViewById(R.id.news_article_card_title);
             newsImage = (ImageView) itemView.findViewById(R.id.news_article_card_image);
+            newsDate  = (TextView)  itemView.findViewById(R.id.news_article_card_date);
         }
     }
 }

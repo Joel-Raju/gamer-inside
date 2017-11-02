@@ -36,7 +36,7 @@ public interface RemoteService {
      * @param offset
      * @return
      */
-    @GET("/pulses/?fields=title,pulse_image.cloudinary_id&order=created_at:desc" +
+    @GET("/pulses/?fields=title,pulse_image.cloudinary_id,created_at&order=created_at:desc" +
             "&filter[pulse_image][exists]&filter[author][exist]&filter[summary][exist]")
     Call<List<NewsArticle>> getLatestNews(
             @Query(LIMIT_QUERY_PARAM) int limit,

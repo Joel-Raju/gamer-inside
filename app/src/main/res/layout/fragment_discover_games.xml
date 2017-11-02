@@ -11,46 +11,126 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/discover_game_popular_games" />
+                    android:layout_marginBottom="@dimen/base_vertical_margin"
+                    android:layout_marginLeft="@dimen/base_horizontal_margin"
+                    android:layout_marginRight="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:elevation="3dp"
+                    android:minHeight="@dimen/discover_card_section_min_height">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/popular_games_list"
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/discover_card_section_content_horizontal_margin"
+                            android:layout_marginTop="@dimen/discover_card_section_content_vertical_margin"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:text="@string/discover_game_popular_games"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/discover_card_section_title_size" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/popular_games_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/base_vertical_margin"
+                            android:layout_marginLeft="@dimen/discover_card_section_content_horizontal_margin"
+                            android:layout_marginTop="@dimen/base_vertical_margin"
+                            android:clipToPadding="false" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false" />
+                    android:layout_marginBottom="@dimen/base_vertical_margin"
+                    android:layout_marginLeft="@dimen/base_horizontal_margin"
+                    android:layout_marginRight="@dimen/base_horizontal_margin"
+                    android:elevation="3dp"
+                    android:minHeight="@dimen/discover_card_section_min_height">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/discover_card_section_content_horizontal_margin"
+                            android:layout_marginTop="@dimen/discover_card_section_content_vertical_margin"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:text="@string/discover_game_most_anticipated"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/discover_card_section_title_size" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/most_anticipated_games_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/base_vertical_margin"
+                            android:layout_marginLeft="@dimen/discover_card_section_content_horizontal_margin"
+                            android:layout_marginTop="@dimen/base_vertical_margin"
+                            android:clipToPadding="false" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/discover_game_most_anticipated" />
+                    android:layout_marginBottom="@dimen/base_vertical_margin"
+                    android:layout_marginLeft="@dimen/base_horizontal_margin"
+                    android:layout_marginRight="@dimen/base_horizontal_margin"
+                    android:elevation="3dp"
+                    android:minHeight="@dimen/discover_card_section_min_height">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/most_anticipated_games_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/discover_card_section_content_horizontal_margin"
+                            android:layout_marginTop="@dimen/discover_card_section_content_vertical_margin"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:text="@string/discover_game_coming_soon"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/discover_card_section_title_size" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/upcoming_games_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/base_vertical_margin"
+                            android:layout_marginLeft="@dimen/discover_card_section_content_horizontal_margin"
+                            android:layout_marginTop="@dimen/base_vertical_margin"
+                            android:clipToPadding="false" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/discover_game_coming_soon" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/upcoming_games_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
