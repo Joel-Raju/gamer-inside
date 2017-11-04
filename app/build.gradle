@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.raju.joel.gamerinside"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -13,12 +13,12 @@ android {
     }
     buildTypes {
         debug {
-            //buildConfigField("String", "IGDB_API_KEY", "b10c5c2e8f444ba0b88218e1f8caaa9c")
+
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //buildConfigField("String", "IGDB_API_KEY", "b10c5c2e8f444ba0b88218e1f8caaa9c")
+
         }
     }
 

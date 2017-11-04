@@ -31,7 +31,7 @@ public interface GamesDataSource {
 
     void getGame(@NonNull String gameId, @NonNull GetGameCallback callback);
 
-    void searchForGames(@NonNull String searchKeyword, @NonNull LoadGamesCallback callback);
+    void searchForGames(@NonNull String searchKeyword, boolean resetSearch, @NonNull LoadGamesCallback callback);
 
     void refreshPopularGames();
 

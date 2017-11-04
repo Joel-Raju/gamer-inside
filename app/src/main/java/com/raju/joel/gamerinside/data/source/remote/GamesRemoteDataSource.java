@@ -51,7 +51,14 @@ public class GamesRemoteDataSource implements GamesDataSource {
 
     @Override
     public void getPopularGames(@NonNull final LoadGamesCallback callback) {
-        mService.getPopularGames(GAMES_PAGINATION_LIMIT, POPULAR_GAMES_PAGINATION_OFFSET)
+        Date date = new Date();
+        String dateUpperBound = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        int pastYear = Calendar.getInstance().get(Calendar.YEAR) - 1 ;
+        String dateLowerBound = String.valueOf(pastYear) + dateUpperBound.substring(4);
+        String orderByPopularity = "popularity:desc";
+
+        mService.getPopularGames(GAMES_PAGINATION_LIMIT, POPULAR_GAMES_PAGINATION_OFFSET,
+                orderByPopularity, dateLowerBound, dateUpperBound)
                 .enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
@@ -150,7 +157,10 @@ public class GamesRemoteDataSource implements GamesDataSource {
     }
 
     @Override
-    public void searchForGames(@NonNull String searchKeyword, @NonNull final LoadGamesCallback callback) {
+    public void searchForGames(@NonNull String searchKeyword, boolean resetSearch, @NonNull final LoadGamesCallback callback) {
+        if (resetSearch) {
+            SEARCH_GAMES_PAGINATION_OFFSET = 0;
+        }
         String searchTerm = searchKeyword;
         mService.searchForGames(searchTerm, SEARCHED_GAMES_PAGINATION_LIMIT,
                 SEARCH_GAMES_PAGINATION_OFFSET).enqueue(new Callback<List<Game>>() {

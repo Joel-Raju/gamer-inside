@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,6 +64,10 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
 
     private RelativeLayout mContentLoading;
 
+    private LinearLayout mGameStorylineContent;
+
+    private LinearLayout mGameRatingContent;
+
     private ImageGalleryAdapter mImageGalleryAdapter;
 
     private GameImageVideoGalleryAdapter mVideoGalleryAdapter;
@@ -93,8 +99,10 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mImageGalleryAdapter = new ImageGalleryAdapter(getContext(), new ArrayList<Game.ScreenShot>(0));
-        mVideoGalleryAdapter = new VideoGalleryAdapter(getContext(), new ArrayList<Game.Video>(0));
+        mImageGalleryAdapter = new ImageGalleryAdapter(getContext(),
+                new ArrayList<Game.ScreenShot>(0), R.layout.item_game_image);
+        mVideoGalleryAdapter = new VideoGalleryAdapter(getContext(),
+                new ArrayList<Game.Video>(0), R.layout.item_game_video);
     }
 
     @Override
@@ -120,6 +128,8 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
         mCriticRating = (ProgressBar) view.findViewById(R.id.game_critic_rating);
         mCriticsRatingValue = (TextView) view.findViewById(R.id.game_critic_rating_value);
         mGamerRatingValue = (TextView) view.findViewById(R.id.game_gamer_rating_value);
+        mGameStorylineContent = (LinearLayout) view.findViewById(R.id.game_storyline_content);
+        mGameRatingContent = (LinearLayout) view.findViewById(R.id.game_rating_content);
         gameImageGalleryView = (RecyclerView) view.findViewById(R.id.game_image_gallery);
         gameVideoGalleryView = (RecyclerView) view.findViewById(R.id.game_video_gallery);
 
@@ -155,7 +165,7 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
     public void showGameDetail(Game game) {
         mGameTitle.setText(game.getName());
         gameSummary.setText(game.getSummary());
-        gameStoryLine.setText(game.getStoryLine());
+
 
         if (game.getCoverImage() != null && game.getCoverImage().getCloudId() != null) {
             Picasso.with(getContext())
@@ -163,18 +173,22 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
                     .into(gameHeaderImage);
         }
 
+        if (game.getStoryLine() != null && !game.getStoryLine().isEmpty()) {
+            showStoryLine(game.getStoryLine());
+        } else {
+            mGameStorylineContent.setVisibility(View.GONE);
+        }
+
         if (game.getInitialReleaseDate() != null) {
             showInitialReleaseDate(game.getInitialReleaseDate());
         }
 
-        // TODO - handle rating null
-        if (game.getCriticsRating() != null && !game.getCriticsRating().isEmpty()) {
+        if(game.getCriticsRating() != null && !game.getCriticsRating().isEmpty() &&
+                game.getGamersRating() != null && !game.getGamersRating().isEmpty()) {
             showCriticsRating(game.getCriticsRating());
-        }
-
-        // TODO - handle rating null
-        if (game.getGamersRating() != null && !game.getGamersRating().isEmpty()) {
             showGamerRating(game.getGamersRating());
+        } else {
+            mGameRatingContent.setVisibility(View.GONE);
         }
 
         if (game.getPlatforms() != null && game.getPlatforms().size() > 0) {
@@ -185,16 +199,19 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
     private void showInitialReleaseDate(Date date) {
         String pattern = "dd MMM YYYY";
         SimpleDateFormat dateFormat = new SimpleDateFormat();
-        dateFormat.applyPattern(pattern);
-        String formattedDate = dateFormat.format(date);
-        mInitialReleaseDate.setText(formattedDate);
-
+        try {
+            dateFormat.applyPattern(pattern);
+            String formattedDate = dateFormat.format(date);
+            mInitialReleaseDate.setText(formattedDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void showGamePlatforms(List<Platform> platformList) {
         String platformString = "";
         for (Platform platform: platformList) {
-            platformString += platform.getName() + ",";
+            platformString += platform.getName() + ", ";
         }
         if (platformString.charAt(platformString.length() -1 ) == ',') {
             platformString = platformString.substring(0, platformString.length() - 1);
@@ -228,6 +245,10 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
         gamerRatingProgressAnimator.setDuration(500);
         gamerRatingProgressAnimator.setInterpolator(new DecelerateInterpolator());
         gamerRatingProgressAnimator.start();
+    }
+
+    private void showStoryLine(String storyLine) {
+        gameStoryLine.setText(Html.fromHtml(storyLine));
     }
 
     private String getGameHeaderImage(String cloudId) {

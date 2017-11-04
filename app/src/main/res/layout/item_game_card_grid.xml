@@ -21,12 +21,15 @@
             android:scaleType="fitXY" />
 
         <TextView
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/opensans_regular"
             android:id="@+id/game_card_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/game_card_item_cover"
             android:maxLength="10"
-            android:maxLines="1"
+            android:minLines="2"
+            android:maxLines="2"
             android:maxWidth="100dp"
             android:padding="@dimen/game_card_item_title_padding"
             android:textSize="@dimen/game_card_item_title_size" />

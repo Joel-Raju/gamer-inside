@@ -27,7 +27,7 @@ public interface SearchContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadSearchResults(String searchTerm);
+        void loadSearchResults(String searchTerm, boolean resetSearch);
 
         void openGameDetail(Game game);
 

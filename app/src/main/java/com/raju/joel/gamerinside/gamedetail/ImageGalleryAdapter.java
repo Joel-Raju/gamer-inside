@@ -3,6 +3,7 @@ package com.raju.joel.gamerinside.gamedetail;
 import android.content.Context;
 import android.view.ViewGroup;
 
+import com.raju.joel.gamerinside.R;
 import com.raju.joel.gamerinside.data.Game;
 import com.squareup.picasso.Picasso;
 
@@ -20,8 +21,8 @@ public class ImageGalleryAdapter extends GameImageVideoGalleryAdapter {
 
     private Context mContext;
 
-    ImageGalleryAdapter(Context context, List<Game.ScreenShot> imageList) {
-        super(imageList);
+    ImageGalleryAdapter(Context context, List<Game.ScreenShot> imageList, int layoutId) {
+        super(imageList, layoutId);
         mContext = context;
     }
 
@@ -31,6 +32,7 @@ public class ImageGalleryAdapter extends GameImageVideoGalleryAdapter {
         String imageUrl = getScreenShotImagePath(screenShot.getCloudId());
         Picasso.with(mContext)
                 .load(imageUrl)
+                .placeholder(R.drawable.placeholder_image)
                 .into(holder.getGalleryItemImage());
     }
 

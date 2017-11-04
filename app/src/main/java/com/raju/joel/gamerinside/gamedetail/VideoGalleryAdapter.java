@@ -24,8 +24,8 @@ public class VideoGalleryAdapter extends GameImageVideoGalleryAdapter {
     private static String YOUTUBE_WEB_URI = "http://www.youtube.com/watch?v=";
 
 
-    VideoGalleryAdapter(Context context, List<Game.Video> videoList) {
-        super(videoList);
+    VideoGalleryAdapter(Context context, List<Game.Video> videoList, int layoutId) {
+        super(videoList, layoutId);
         mContext = context;
     }
 

@@ -58,10 +58,13 @@ public interface RemoteService {
      * @param offset
      * @return
      */
-    @GET("games/?fields=name,cover&order=popularity:desc")
+    @GET("games/?fields=name,cover&filter[cover][exist]")
     Call<List<Game>> getPopularGames(
             @Query(LIMIT_QUERY_PARAM) int limit,
-            @Query(OFFSET_QUERY_PARAM) int offset);
+            @Query(OFFSET_QUERY_PARAM) int offset,
+            @Query(ORDER_QUERY_PARAM) String popularityOrder,
+            @Query(FILTER_RELEASE_DATE_LOWER_QUERY_PARAM) String releaseDateLowerBound,
+            @Query(FILTER_RELEASE_DATE_UPPER_QUERY_PARAM) String releaseDateUpperBound);
 
 
     /**

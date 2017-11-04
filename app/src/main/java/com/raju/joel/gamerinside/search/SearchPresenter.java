@@ -34,8 +34,8 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void loadSearchResults(String searchTerm) {
-        loadSearchResults(searchTerm, false);
+    public void loadSearchResults(String searchTerm, boolean resetSearch) {
+        loadSearchResults(searchTerm, false, resetSearch);
     }
 
     @Override
@@ -49,12 +49,12 @@ public class SearchPresenter implements SearchContract.Presenter {
         mView.showGameDetailUi(game.getId());
     }
 
-    private void loadSearchResults(String searchTerm, final boolean showLoadingUi) {
+    private void loadSearchResults(String searchTerm, final boolean showLoadingUi, boolean resetSearch) {
         if (searchTerm == null || searchTerm.isEmpty()) {
             mView.showSearchError();
             return;
         }
-        mGamesRepository.searchForGames(searchTerm, new GamesDataSource.LoadGamesCallback() {
+        mGamesRepository.searchForGames(searchTerm, resetSearch, new GamesDataSource.LoadGamesCallback() {
             @Override
             public void onGamesLoaded(List<Game> games) {
                 if (!mView.isActive()) {

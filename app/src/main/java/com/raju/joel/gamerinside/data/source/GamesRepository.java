@@ -162,8 +162,8 @@ public class GamesRepository implements GamesDataSource {
     }
 
     @Override
-    public void searchForGames(@NonNull String searchKeyword, @NonNull final LoadGamesCallback callback) {
-        mGamesRemoteDataSource.searchForGames(searchKeyword, new LoadGamesCallback() {
+    public void searchForGames(@NonNull String searchKeyword, boolean resetSearch, @NonNull final LoadGamesCallback callback) {
+        mGamesRemoteDataSource.searchForGames(searchKeyword, resetSearch, new LoadGamesCallback() {
             @Override
             public void onGamesLoaded(List<Game> games) {
                 mSearchedGamesCache = refreshSearchedGamesCache(games);

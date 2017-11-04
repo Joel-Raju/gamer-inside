@@ -25,6 +25,7 @@
     <string name="game_detail_critics_rating_label">Critics Rating</string>
     <string name="game_detail_developers_label">Developer(s):</string>
     <string name="game_detail_platforms_label">Available On:</string>
+    <string name="game_detail_release_date">Release Date:</string>
     <string name="game_detail_image_gallery_label">Image Gallery</string>
     <string name="game_detail_video_gallery_label">Video Gallery</string>
 

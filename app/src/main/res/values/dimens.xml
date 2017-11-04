@@ -25,6 +25,8 @@
     <dimen name="screenshot_item_full_width">320dp</dimen>
     <dimen name="screenshot_item_full_height">181dp</dimen>
     <dimen name="screenshot_item_horizontal_margin">8dp</dimen>
+    <dimen name="screenshot_item_label_vertical_margin">16dp</dimen>
+    <dimen name="item_play_arrow_size">80dp</dimen>
 
     <dimen name="content_horizontal_margin">24dp</dimen>
 
@@ -33,6 +35,8 @@
     <dimen name="game_detail_game_title_size">24sp</dimen>
     <dimen name="game_detail_vertical_margin">24dp</dimen>
     <dimen name="game_detail_individual_content_vertical_margin">16dp</dimen>
+    <dimen name="game_detail_label_size">16dp</dimen>
+    <dimen name="game_detail_label_horizonal_margin">16dp</dimen>
 
     <dimen name="news_detail_content_top_margin">16dp</dimen>
     <dimen name="news_detail_title_size">25sp</dimen>

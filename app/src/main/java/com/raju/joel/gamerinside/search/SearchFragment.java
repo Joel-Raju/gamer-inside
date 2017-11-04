@@ -104,7 +104,7 @@ public class SearchFragment extends Fragment implements SearchContract.View,
 
     @Override
     public void onBottomReached() {
-        mPresenter.loadSearchResults(mSearchQuery);
+        mPresenter.loadSearchResults(mSearchQuery, false);
     }
 
     @Override
@@ -113,13 +113,13 @@ public class SearchFragment extends Fragment implements SearchContract.View,
     }
 
     private void performSearch(final String searchString) {
-        if (searchString.length() > MIN_KEYWORD_LENGTH) {
+        if (searchString.length() >= MIN_KEYWORD_LENGTH) {
             mPresenter.clearSearchedResults();
             mHandler.removeCallbacks(mRunnable);
             mRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    mPresenter.loadSearchResults(searchString);
+                    mPresenter.loadSearchResults(searchString, true);
                 }
             };
             mHandler.postDelayed(mRunnable, SEARCH_DEBOUNCE_TIME_IN_MS);

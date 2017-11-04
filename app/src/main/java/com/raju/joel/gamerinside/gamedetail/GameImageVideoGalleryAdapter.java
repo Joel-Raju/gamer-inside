@@ -22,11 +22,14 @@ abstract class GameImageVideoGalleryAdapter extends RecyclerView.Adapter<GameIma
 
     private List<?> mGalleryList;
 
+    private int mLayoutId;
+
     GameImageVideoGalleryAdapter() {
 
     }
 
-    GameImageVideoGalleryAdapter(List<?> galleryList) {
+    GameImageVideoGalleryAdapter(List<?> galleryList, int layoutId) {
+        mLayoutId = layoutId;
         setGalleryList(galleryList);
     }
 
@@ -37,7 +40,7 @@ abstract class GameImageVideoGalleryAdapter extends RecyclerView.Adapter<GameIma
     @Override
     public GameImageVideoVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_game_image_video, parent, false);
+                .inflate(mLayoutId, parent, false);
         return new GameImageVideoVH(itemView);
     }
 

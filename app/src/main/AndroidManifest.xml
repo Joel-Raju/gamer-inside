@@ -25,7 +25,7 @@
         </activity>
         <activity android:name=".newsdetail.NewsDetailActivity" />
         <activity android:name=".gamecollection.GameCollectionActivity" />
-        <activity android:name=".webpage.WebpageActivity"></activity>
+        <activity android:name=".webpage.WebpageActivity" />
     </application>
 
 </manifest>
