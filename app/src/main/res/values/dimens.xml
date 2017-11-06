@@ -3,10 +3,13 @@
 
     <!--Game Card List Item-->
     <dimen name="game_card_item_height">160dp</dimen>
+    <dimen name="game_card_item_width">100dp</dimen>
     <dimen name="game_card_grid_item_width">146dp</dimen>
     <dimen name="game_card_grid_item_height">160dp</dimen>
     <dimen name="game_card_item_title_padding">10dp</dimen>
     <dimen name="game_card_item_title_size">12sp</dimen>
+    <dimen name="game_card_item_max_width">100dp</dimen>
+    <dimen name="game_card_item_grid_max_width">100dp</dimen>
 
 
     <dimen name="news_card_content_horizontal_margin">16dp</dimen>
@@ -37,6 +40,7 @@
     <dimen name="game_detail_individual_content_vertical_margin">16dp</dimen>
     <dimen name="game_detail_label_size">16dp</dimen>
     <dimen name="game_detail_label_horizonal_margin">16dp</dimen>
+    <dimen name="game_detail_header_image_height">300dp</dimen>
 
     <dimen name="news_detail_content_top_margin">16dp</dimen>
     <dimen name="news_detail_title_size">25sp</dimen>

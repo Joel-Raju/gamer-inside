@@ -17,6 +17,8 @@
         card_view:cardCornerRadius="4dp">
 
         <android.support.v7.widget.SearchView
+            android:clickable="true"
+            app:iconifiedByDefault="false"
             android:id="@+id/game_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

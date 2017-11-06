@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/game_card_item_cover"
             android:layout_width="@dimen/game_card_grid_item_width"
-            android:layout_height="@dimen/game_card_item_height"
+            android:layout_height="@dimen/game_card_grid_item_height"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="fitXY" />
@@ -27,10 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/game_card_item_cover"
-            android:maxLength="10"
             android:minLines="2"
             android:maxLines="2"
-            android:maxWidth="100dp"
+            android:maxWidth="@dimen/game_card_item_grid_max_width"
             android:padding="@dimen/game_card_item_title_padding"
             android:textSize="@dimen/game_card_item_title_size" />
     </RelativeLayout>

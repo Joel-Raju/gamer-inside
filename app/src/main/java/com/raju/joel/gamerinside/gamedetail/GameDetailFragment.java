@@ -72,6 +72,10 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
 
     private GameImageVideoGalleryAdapter mVideoGalleryAdapter;
 
+    private LinearLayout mVideoGalleryContent;
+
+    private LinearLayout mImageGalleryContent;
+
     private static final String IMAGE_BASE_URL = "https://images.igdb.com/igdb/image/upload";
 
     private static final String IMAGE_HEADER_SIZE = "/t_screenshot_big/";
@@ -130,6 +134,8 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
         mGamerRatingValue = (TextView) view.findViewById(R.id.game_gamer_rating_value);
         mGameStorylineContent = (LinearLayout) view.findViewById(R.id.game_storyline_content);
         mGameRatingContent = (LinearLayout) view.findViewById(R.id.game_rating_content);
+        mVideoGalleryContent = (LinearLayout) view.findViewById(R.id.game_video_gallery_content);
+        mImageGalleryContent = (LinearLayout) view.findViewById(R.id.game_image_gallery_content);
         gameImageGalleryView = (RecyclerView) view.findViewById(R.id.game_image_gallery);
         gameVideoGalleryView = (RecyclerView) view.findViewById(R.id.game_video_gallery);
 
@@ -197,7 +203,7 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
     }
 
     private void showInitialReleaseDate(Date date) {
-        String pattern = "dd MMM YYYY";
+        String pattern = "dd MMM yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat();
         try {
             dateFormat.applyPattern(pattern);
@@ -262,11 +268,19 @@ public class GameDetailFragment extends Fragment implements GameDetailContract.V
 
     @Override
     public void showGameImageGallery(List<Game.ScreenShot> screenShots) {
+        if (screenShots.isEmpty()) {
+            mImageGalleryContent.setVisibility(View.GONE);
+            return;
+        }
         mImageGalleryAdapter.replaceData(screenShots);
     }
 
     @Override
     public void showGameVideoGallery(List<Game.Video> videos) {
+        if (videos.isEmpty()) {
+            mVideoGalleryContent.setVisibility(View.GONE);
+            return;
+        }
         mVideoGalleryAdapter.replaceData(videos);
     }
 

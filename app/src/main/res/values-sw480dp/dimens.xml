@@ -1,3 +1,20 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="news_card_item_height">390dp</dimen>
+    <dimen name="news_detail_image_height">390dp</dimen>
+
+    <dimen name="game_card_item_width">150dp</dimen>
+    <dimen name="game_card_item_height">240dp</dimen>
+
+    <dimen name="game_detail_header_image_height">410dp</dimen>
+
+    <dimen name="screenshot_item_full_width">540dp</dimen>
+    <dimen name="screenshot_item_full_height">305dp</dimen>
+
+    <dimen name="game_card_grid_item_width">182dp</dimen>
+    <dimen name="game_card_grid_item_height">346dp</dimen>
+    <dimen name="game_card_item_title_size">16sp</dimen>
+
+    <dimen name="game_card_item_max_width">136dp</dimen>
+    <dimen name="game_card_item_grid_max_width">150dp</dimen>
 </resources>

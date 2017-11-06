@@ -18,7 +18,7 @@
 
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/game_detail_header_image_height"
                 android:fitsSystemWindows="true">
 
                 <android.support.design.widget.CollapsingToolbarLayout
@@ -31,8 +31,8 @@
                         android:id="@+id/game_header_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="fitXY"
                         app:layout_collapseMode="none" />
 
                     <android.support.v7.widget.Toolbar
@@ -90,8 +90,8 @@
                             android:id="@+id/game_release_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/game_detail_label_horizonal_margin"
                             android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
+                            android:layout_marginLeft="@dimen/game_detail_label_horizonal_margin"
                             android:layout_marginRight="@dimen/content_horizontal_margin"
                             android:fontFamily="@font/opensans_regular"
                             android:textColor="@android:color/black" />
@@ -162,12 +162,11 @@
                                     android:id="@+id/game_gamer_rating_value"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignBottom="@id/game_gamer_rating"
                                     android:layout_alignEnd="@id/game_gamer_rating"
                                     android:layout_alignLeft="@id/game_gamer_rating"
                                     android:layout_alignRight="@id/game_gamer_rating"
                                     android:layout_alignStart="@id/game_gamer_rating"
-                                    android:layout_alignTop="@id/game_gamer_rating"
+                                    android:layout_centerVertical="true"
                                     android:fontFamily="@font/opensans_semibold"
                                     android:gravity="center"
                                     android:textColor="@android:color/black" />
@@ -192,7 +191,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
-                                android:layout_weight="0.5"
                                 android:gravity="center_horizontal">
 
 
@@ -210,12 +208,11 @@
                                     android:id="@+id/game_critic_rating_value"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignBottom="@id/game_critic_rating"
                                     android:layout_alignEnd="@id/game_critic_rating"
                                     android:layout_alignLeft="@id/game_critic_rating"
                                     android:layout_alignRight="@id/game_critic_rating"
                                     android:layout_alignStart="@id/game_critic_rating"
-                                    android:layout_alignTop="@id/game_critic_rating"
+                                    android:layout_centerVertical="true"
                                     android:fontFamily="@font/opensans_semibold"
                                     android:gravity="center"
                                     android:textColor="@android:color/black" />
@@ -279,46 +276,61 @@
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
-
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/game_image_gallery_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
-                        android:layout_marginLeft="@dimen/content_horizontal_margin"
-                        android:layout_marginRight="@dimen/content_horizontal_margin"
-                        android:fontFamily="@font/opensans_semibold"
-                        android:text="@string/game_detail_image_gallery_label"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/game_detail_label_size" />
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/game_image_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
-                        android:layout_marginLeft="@dimen/recyclerview_view_horizontal_margin"
-                        android:layout_marginRight="@dimen/recyclerview_view_horizontal_margin"
-                        android:clipToPadding="false" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
+                            android:layout_marginLeft="@dimen/content_horizontal_margin"
+                            android:layout_marginRight="@dimen/content_horizontal_margin"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:text="@string/game_detail_image_gallery_label"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/game_detail_label_size" />
 
-                    <TextView
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/game_image_gallery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
+                            android:layout_marginLeft="@dimen/recyclerview_view_horizontal_margin"
+                            android:layout_marginRight="@dimen/recyclerview_view_horizontal_margin"
+                            android:clipToPadding="false" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/game_video_gallery_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
-                        android:layout_marginLeft="@dimen/content_horizontal_margin"
-                        android:layout_marginRight="@dimen/content_horizontal_margin"
-                        android:fontFamily="@font/opensans_semibold"
-                        android:text="@string/game_detail_video_gallery_label"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/game_detail_label_size" />
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/game_video_gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
-                        android:layout_marginLeft="@dimen/recyclerview_view_horizontal_margin"
-                        android:layout_marginRight="@dimen/recyclerview_view_horizontal_margin"
-                        android:clipToPadding="false" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
+                            android:layout_marginLeft="@dimen/content_horizontal_margin"
+                            android:layout_marginRight="@dimen/content_horizontal_margin"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:text="@string/game_detail_video_gallery_label"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/game_detail_label_size" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/game_video_gallery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/game_detail_individual_content_vertical_margin"
+                            android:layout_marginLeft="@dimen/recyclerview_view_horizontal_margin"
+                            android:layout_marginRight="@dimen/recyclerview_view_horizontal_margin"
+                            android:clipToPadding="false" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 

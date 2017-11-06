@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/game_card_item_cover"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/game_card_item_width"
             android:layout_height="@dimen/game_card_item_height"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
@@ -29,7 +29,7 @@
             android:fontFamily="@font/opensans_regular"
             android:gravity="start"
             android:maxLines="2"
-            android:maxWidth="100dp"
+            android:maxWidth="@dimen/game_card_item_max_width"
             android:minLines="2"
             android:padding="@dimen/game_card_item_title_padding"
             android:textAlignment="viewStart"
