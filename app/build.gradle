@@ -22,6 +22,11 @@ android {
         }
     }
 
+
+    defaultConfig {
+        buildConfigField("String", "IGDB_API_KEY", "\"${igdb_api_key}\"");
+    }
+
     flavorDimensions "mock", "prod"
 
     productFlavors {
